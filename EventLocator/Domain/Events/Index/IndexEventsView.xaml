@@ -1,0 +1,136 @@
+﻿<Page x:Class="EventLocator.Domain.Events.Index.IndexEventsView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:EventLocator.Domain.Events.Index"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="IndexEventsView">
+
+    <StackPanel Margin="100, 0, 100, 0">
+        <Label Content="Events" FontSize="80" FontWeight="Bold" HorizontalAlignment="Center"></Label>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Content="Label:" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
+            <TextBox 
+                x:Name="SearchedLabel"  
+                Text="{Binding Path=SearchedLabel, UpdateSourceTrigger=PropertyChanged}" 
+                Grid.Row="0" Grid.Column="1"/>
+            
+            <Label Content="Name:" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="2"/>
+            <TextBox 
+                Width="Auto"
+                x:Name="SearchedName" 
+                Text="{Binding Path=SearchedName, UpdateSourceTrigger=PropertyChanged}" 
+                Grid.Row="0" Grid.Column="3"/>
+            
+            <Label Content="Description:" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="4"/>
+            <TextBox 
+                Width="Auto"
+                x:Name="SearchedDescription" 
+                Text="{Binding Path=SearchedDescription, UpdateSourceTrigger=PropertyChanged}" 
+                Grid.Row="0" Grid.Column="5"/>
+
+            <Label Content="Event type:" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
+            <ComboBox 
+                ItemsSource="{Binding EventTypeComboBoxOptions}"
+                SelectedItem="{Binding Path=SearchedEventType, UpdateSourceTrigger=PropertyChanged}"
+                DisplayMemberPath="Name"
+                Grid.Row="1" Grid.Column="1"/>
+
+            <Label Content="Attendance:" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="2"/>
+            <ComboBox 
+                ItemsSource="{Binding AttendanceComboBoxOptions}"
+                SelectedItem="{Binding Path=SearchedAttendance, UpdateSourceTrigger=PropertyChanged}"
+                DisplayMemberPath="Name"
+                Grid.Row="1" Grid.Column="3"/>
+
+            <Label Content="Is charity:" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="4"/>
+            <CheckBox 
+                IsChecked="{Binding SearchedIsCharity}"
+                Grid.Row="1" Grid.Column="5"/>
+
+            <Label Content="Country:" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="0"/>
+            <TextBox 
+                x:Name="SearchedCountry" 
+                Text="{Binding Path=SearchedCountry, UpdateSourceTrigger=PropertyChanged}" 
+                Grid.Row="2" Grid.Column="1"/>
+            
+            <Label Content="City:" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="2"/>
+            <TextBox 
+                x:Name="SearchedCity" 
+                Text="{Binding Path=SearchedCity, UpdateSourceTrigger=PropertyChanged}" 
+                Grid.Row="2" Grid.Column="3"/>
+            
+            <Label Content="Expenses from:" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="0"/>
+            <TextBox 
+                x:Name="SearchedExpensesFrom" 
+                Text="{Binding Path=SearchedExpensesFrom, UpdateSourceTrigger=PropertyChanged}" 
+                Grid.Row="3" Grid.Column="1"/>
+
+            <Label Content="Expenses to:" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="2"/>
+            <TextBox 
+                x:Name="SearchedExpensesTo" 
+                Text="{Binding Path=SearchedExpensesTo, UpdateSourceTrigger=PropertyChanged}" 
+                Grid.Row="3" Grid.Column="3"/>
+
+            <Label Content="Event date from:" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="0"/>
+            <DatePicker 
+                SelectedDate="{Binding Path=SearchedEventDateFrom, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                Grid.Row="4" Grid.Column="1"/>
+            
+            <Label Content="Event date to:" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="2"/>
+            <DatePicker 
+                SelectedDate="{Binding Path=SearchedEventDateTo, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                Grid.Row="4" Grid.Column="3"/>
+            
+            <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.ColumnSpan="6" Margin="0 10 0 10" HorizontalAlignment="Center">
+                <Button Command="{Binding SearchCommand}" Margin="10 0" Content="Search"></Button>
+                <Button Command="{Binding ClearSearchCommand}" Content="Clear search"></Button>
+            </StackPanel>
+
+        </Grid>
+        <StackPanel>
+            <Label Content="Filter:"/>
+            <TextBox x:Name="Filter" Text="{Binding Path=Filter, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+        <DataGrid x:Name="TagsDataGrid" 
+          ItemsSource="{Binding Path=SearchedEntities}" 
+          SelectedItem="{Binding Path=SelectedEntity}"
+          Width="Auto"
+          AutoGenerateColumns="False"
+    >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Label" Binding="{Binding Label}" />
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                <DataGridTextColumn Header="Type" Binding="{Binding Type.Label}" />
+                <DataGridTextColumn Header="Attendance" Binding="{Binding Attendance}" />
+                <DataGridTextColumn Header="Charity" Binding="{Binding IsCharity}" />
+                <DataGridTextColumn Header="Expenses" Binding="{Binding AverageHostingExpenses}" />
+                <DataGridTextColumn Header="Country" Binding="{Binding Country}" />
+                <DataGridTextColumn Header="City" Binding="{Binding City}" />
+                <DataGridTextColumn Header="Date" Binding="{Binding EventDate}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Add" Command="{Binding AddCommand}"></Button>
+        <Button Content="Edit" Command="{Binding EditCommand}"></Button>
+        <Button Content="Delete" Command="{Binding DeleteCommand}"></Button>
+    </StackPanel>
+</Page>
