@@ -17,9 +17,12 @@ namespace EventLocator
 {
     public partial class MainWindow : Window
     {
+        private readonly Repository _repository;
         public MainWindow()
         {
             InitializeComponent();
+
+            _repository = new Repository();
 
             double screenWidth = SystemParameters.WorkArea.Width;
             double screenHeight = SystemParameters.WorkArea.Height;

@@ -10,34 +10,9 @@ namespace EventLocator.Data
 {
     public class Repository
     {
-        public Repository() 
-        {
-            Tags = [
-                new Tag(Guid.NewGuid(), "POPULAR", "red", "This is a very popular event!"),
-                new Tag(Guid.NewGuid(), "CLASSIC", "green", "This event is a classic!"),
-                new Tag(Guid.NewGuid(), "BIG", "yellow", "This is a big event!"),
-                new Tag(Guid.NewGuid(), "ANNUAL", "blue", "This event is held annualy!"),
-                new Tag(Guid.NewGuid(), "WORLDWIDE", "yellow", "This is a worldwide event!"),
-            ];
-
-            EventTypes = [
-                new EventType(Guid.NewGuid(), "MUSIC", "Music festival", "This event involves music", "../../../Resources/Images/add.png"),
-                new EventType(Guid.NewGuid(), "CULTURAL", "Cultural festival", "This is a cultural event", "../../../Resources/Images/cancel.png"),
-                new EventType(Guid.NewGuid(), "FILM", "Cultural festival", "This is a cultural event", "../../../Resources/Images/clock.png"),
-                new EventType(Guid.NewGuid(), "NATURE", "Nature festival", "This is event is held in nature", "../../../Resources/Images/medicament.png"),
-                new EventType(Guid.NewGuid(), "MARKET", "Market festival", "This is event is held as a market", "../../../Resources/Images/list.png")
-            ];
-            Events = [
-                new Event(Guid.NewGuid(), "EXIT", "EXIT music festival", "Music festival exit", new EventType(Guid.NewGuid(), "MUSIC", "Music festival", "This event involves music", "icon"), Attendance.OVER_10000, "../../../Resources/Images/add.png", false, 123456.00m, "Srbija", "Novi Sad", [new DateTime(2023, 7, 4)], new DateTime(2024, 7, 6), [new Tag(Guid.NewGuid(), "POPULAR", "red", "This is a very popular event!"), new Tag(Guid.NewGuid(), "ANNUAL", "blue", "This event is held annualy!"),]),
-                new Event(Guid.NewGuid(), "NB", "Nocni bazar", "Nocni bazar na ribljoj pijaci", new EventType(Guid.NewGuid(), "MARKET", "Market festival", "This is event is held as a market", "icon"), Attendance.FROM_1000_TO_5000, "ikonica", false, 5670.00m, "Srbija", "Novi Sad", [new DateTime(2024, 2, 19), new DateTime(2024, 3, 8), new DateTime(2024, 4, 19)], new DateTime(2024, 5, 8), [new Tag(Guid.NewGuid(), "CLASSIC", "green", "This event is a classic!")])
-            ];
-        }
+        private readonly EventLocatorDbContext _dbContext;
         private static Repository instance;
-
-        private List<Event> _events = [];
-        private List<EventType> _eventTypes = [];
-        private List<Tag> _tags = [];
-        public static Repository Instance 
+        public static Repository Instance
         {
             get
             {
@@ -45,43 +20,168 @@ namespace EventLocator.Data
                 return instance;
             }
         }
-
-        public List<Event> Events
+        public Repository() 
         {
-            get
+            _dbContext = new EventLocatorDbContext();
+        }
+        #region events
+        public IEnumerable<Event> GetAllEvents()
+        {
+            return _dbContext.Events.ToList();
+        }
+        public Event? GetEventById(Guid id)
+        {
+            return _dbContext.Events.Find(id);
+        }
+        public void AddEvent(Event e)
+        {    
+            _dbContext.Events.Add(e);
+            _dbContext.SaveChanges();
+        }
+        public bool EditEvent(Event e)
+        {
+            Event? eventToEdit = _dbContext.Events.Find(e.Id);
+            if(eventToEdit != null)
             {
-                return _events;
+                eventToEdit.Label = e.Label;
+                eventToEdit.Name = e.Name;
+                eventToEdit.Description = e.Description;
+                eventToEdit.Type = e.Type;
+                eventToEdit.Attendance = e.Attendance;
+                eventToEdit.IconUrl = e.IconUrl;
+                eventToEdit.IsCharity = e.IsCharity;
+                eventToEdit.AverageHostingExpenses = e.AverageHostingExpenses;
+                eventToEdit.Country = e.Country;
+                eventToEdit.City = e.City;
+                eventToEdit.PreviousEventDates = e.PreviousEventDates;
+                eventToEdit.EventDate = e.EventDate;
+                eventToEdit.Tags = e.Tags;
+
+                _dbContext.SaveChanges();
+                return true;
             }
-            set
+            else
             {
-                _events = value;
+                return false;
+            }
+        }
+        public bool DeleteEvent(Guid id)
+        {
+            Event? eventToDelete = _dbContext.Events.Find(id);
+            if (eventToDelete != null)
+            {
+                _dbContext.Events.Remove(eventToDelete);
+                _dbContext.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        #endregion events
+        #region eventTypes
+        public IEnumerable<EventType> GetAllEventTypes()
+        {
+            return _dbContext.EventTypes.ToList();
+        }
+
+        public EventType? GetEventTypeById(Guid id)
+        {
+            return _dbContext.EventTypes.Find(id);
+        }
+
+        public void AddEventType(EventType eventType)
+        {
+            _dbContext.EventTypes.Add(eventType);
+            _dbContext.SaveChanges();
+        }
+
+        public bool EditEventType(EventType eventType)
+        {
+            EventType? eventTypeToUpdate = _dbContext.EventTypes.Find(eventType.Id);
+            if (eventTypeToUpdate != null)
+            {
+                eventTypeToUpdate.Label = eventType.Label;
+                eventTypeToUpdate.Name = eventType.Name;
+                eventTypeToUpdate.Description = eventType.Description;
+                eventTypeToUpdate.IconUrl = eventType.IconUrl;
+                _dbContext.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
-        public List<EventType> EventTypes
+        public bool DeleteEventType(Guid id)
         {
-            get
+            EventType? eventTypeToDelete = _dbContext.EventTypes.Find(id);
+            if (eventTypeToDelete != null)
             {
-                return _eventTypes;
+                _dbContext.EventTypes.Remove(eventTypeToDelete);
+                _dbContext.SaveChanges();
+                return true;
             }
-            set
+            else
             {
-                _eventTypes = value;
+                return false;
+            }
+        }
+        #endregion eventTypes
+        #region tags
+        public IEnumerable<Tag> GetAllTags()
+        {
+            return _dbContext.Tags.ToList();
+        }
+
+        public Tag? GetTagById(Guid id)
+        {
+            return _dbContext.Tags.Find(id);
+        }
+
+        public void AddTag(Tag tag)
+        {
+            _dbContext.Tags.Add(tag);
+            _dbContext.SaveChanges();
+        }
+
+        public bool EditTag(Tag tag)
+        {
+            Tag? tagToEdit = _dbContext.Tags.Find(tag.Id);
+            if (tagToEdit != null)
+            {
+                tagToEdit.Label = tag.Label;
+                tagToEdit.Description = tag.Description;
+                tagToEdit.Color = tag.Color;
+
+                _dbContext.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
-        public List<Tag> Tags
+        public bool DeleteTag(Guid id)
         {
-            get
+            Tag? tagToDelete = _dbContext.Tags.Find(id);
+            if (tagToDelete != null)
             {
-                return _tags;
+                _dbContext.Tags.Remove(tagToDelete);
+                _dbContext.SaveChanges();
+                return true;
             }
-            set
+            else
             {
-                _tags = value;
+                return false;
             }
         }
-        
+
+        #endregion tags
+        #region dropdowns
         public List<ComboBoxData<Attendance>> attendanceDropdownOptions()
         {
             return
@@ -92,25 +192,24 @@ namespace EventLocator.Data
                 new ComboBoxData<Attendance>("> 10.000", Attendance.OVER_10000)
             ];
         }
-
         public List<ComboBoxData<EventType>> eventTypeDropdownOptions()
         {
             List<ComboBoxData<EventType>> options = [];
+            List<EventType> eventTypes = new(GetAllEventTypes());
 
-            foreach(EventType type in EventTypes)
+            foreach (EventType type in eventTypes)
             {
                 ComboBoxData<EventType> option = new(type.Label, type);
                 options.Add(option);
             }
-
             return options;
         }
-
         public List<ComboBoxData<Tag>> tagDropdownOptions()
         {
             List<ComboBoxData<Tag>> options = [];
+            List<Tag> tags = new(GetAllTags());
 
-            foreach (Tag tag in Tags)
+            foreach (Tag tag in tags)
             {
                 ComboBoxData<Tag> option = new(tag.Label, tag);
                 options.Add(option);
@@ -118,82 +217,6 @@ namespace EventLocator.Data
 
             return options;
         }
-
-        public void AddEvent(Event e)
-        {
-            Events.Add(e);
-        }
-        public void EditEvent(Event e)
-        {
-            
-        }
-        public void RemoveEvent(Guid id)
-        {
-            Event? eventToRemove = Events.Find(foundEvent => foundEvent.Id == id);
-            if (eventToRemove != null)
-            {
-                Events.Remove(eventToRemove);
-            }
-            else
-            {
-                throw new NullReferenceException("There was no event found with the given Id!");
-            }
-        }
-
-        public void AddEventType(EventType type)
-        {
-            EventTypes.Add(type);
-        }
-        public void EditEventType(EventType type)
-        {
-            EventType? oldEventType = EventTypes.Find(eventType => eventType.Id == type.Id);
-
-            if (oldEventType != null)
-            {
-                oldEventType.Label = type.Label;
-                oldEventType.Name = type.Name;
-                oldEventType.Description = type.Description;
-                oldEventType.IconUrl = type.IconUrl;
-            }
-        }
-        public void RemoveEventType(Guid id)
-        {
-            EventType? eventTypeToRemove = EventTypes.Find(foundEventType => foundEventType.Id == id);
-            if (eventTypeToRemove != null)
-            {
-                EventTypes.Remove(eventTypeToRemove);
-            }
-            else
-            {
-                throw new NullReferenceException("There was no event type found with the given Id!");
-            }
-        }
-
-        public void AddTag(Tag tag)
-        {
-            Tags.Add(tag);
-        }
-        public void EditTag(Tag tag)
-        {
-            Tag? oldTag = Tags.Find(foundTag => foundTag.Id == tag.Id);
-            if(oldTag != null)
-            {
-                oldTag.Label = tag.Label;
-                oldTag.Color = tag.Color;
-                oldTag.Description = tag.Description;
-            }
-        }
-        public void RemoveTag(Guid id)
-        {
-            Tag? tagToRemove = Tags.Find(foundTag => foundTag.Id == id);
-            if(tagToRemove != null)
-            {
-                Tags.Remove(tagToRemove);
-            }
-            else
-            {
-                throw new NullReferenceException("There was no tag found with the given Id!");
-            }
-        }
+        #endregion dropdowns
     }
 }

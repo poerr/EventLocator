@@ -79,7 +79,7 @@ namespace EventLocator.Domain.Tags.Index
         public override void DeleteAfterOk(Tag item) 
         {
             base.DeleteAfterOk(item);
-            Repository.Instance.RemoveTag(item.Id);
+            Repository.Instance.DeleteTag(item.Id);
             LoadTableData();
         }
         public override void SearchCommandExecute()
@@ -110,7 +110,7 @@ namespace EventLocator.Domain.Tags.Index
         #region functions
         public override void LoadTableData()
         {
-            Entities = new ObservableCollection<Tag>(Repository.Instance.Tags);
+            Entities = new ObservableCollection<Tag>(Repository.Instance.GetAllTags());
             SearchedEntities = Entities;
         }
         public override void FilterEntities()

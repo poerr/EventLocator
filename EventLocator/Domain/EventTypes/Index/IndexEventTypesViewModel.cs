@@ -81,7 +81,7 @@ namespace EventLocator.Domain.EventTypes.Index
         public override void DeleteAfterOk(EventType item)
         {
             base.DeleteAfterOk(item);
-            Repository.Instance.RemoveEventType(item.Id);
+            Repository.Instance.DeleteEventType(item.Id);
             LoadTableData();
         }
         public override void SearchCommandExecute()
@@ -113,7 +113,7 @@ namespace EventLocator.Domain.EventTypes.Index
         #region functions
         public override void LoadTableData()
         {
-            Entities = new ObservableCollection<EventType>(Repository.Instance.EventTypes);
+            Entities = new ObservableCollection<EventType>(Repository.Instance.GetAllEventTypes());
             SearchedEntities = Entities;
         }
         public override void FilterEntities()

@@ -14,6 +14,7 @@ namespace EventLocator.Domain.Models
         private string _name;
         private string _description;
         private string _iconUrl;
+        private List<Event> _events;
 
         private BitmapImage _iconBitmap;
         public EventType(Guid id, string label, string name, string description, string iconUrl)
@@ -73,6 +74,15 @@ namespace EventLocator.Domain.Models
             {
                 _iconUrl = value;
                 OnPropertyChanged(nameof(IconUrl));
+            }
+        }
+        public List<Event> Events
+        {
+            get { return _events; }
+            set
+            {
+                _events = value;
+                OnPropertyChanged(nameof(Events));
             }
         }
     }

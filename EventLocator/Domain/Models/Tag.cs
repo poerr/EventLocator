@@ -12,6 +12,7 @@ namespace EventLocator.Domain.Models
         private string _label;
         private string _color;
         private string _description;
+        private List<Event> _events;
 
         public Tag(Guid id, string label, string color, string description)
         {
@@ -56,6 +57,16 @@ namespace EventLocator.Domain.Models
             {
                 _description = value;
                 OnPropertyChanged(nameof(Description));
+            }
+        }
+
+        public List<Event> Events
+        {
+            get { return _events; }
+            set
+            {
+                _events = value;
+                OnPropertyChanged(nameof(Events));
             }
         }
     }

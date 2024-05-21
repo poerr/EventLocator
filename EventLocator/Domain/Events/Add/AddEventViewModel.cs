@@ -12,6 +12,7 @@ namespace EventLocator.Domain.Events.Add
 {
     public class AddEventViewModel : BaseDialogViewModel
     {
+        #region properties
         private string _label;
         private string _name;
         private string _description;
@@ -27,70 +28,12 @@ namespace EventLocator.Domain.Events.Add
         private DateTime _eventDate;
         private ObservableCollection<Tag> _tags = [];
         private ComboBoxData<Tag> _selectedTag;
-        private RelayCommand _addTagCommand;
-        private RelayCommand _addPreviousDateCommand;
-        private RelayCommand _removeTagCommand;
-        private RelayCommand _removePreviousDateCommand;
         private Tag _tagToRemove;
         private DateTime _previousDateToRemove;
 
-        public AddEventViewModel() 
-        {
-            AttendanceDropdownOptions = Repository.Instance.attendanceDropdownOptions();
-            EventTypeDropdownOptions = Repository.Instance.eventTypeDropdownOptions();
-            TagDropdownOptions = Repository.Instance.tagDropdownOptions();
-        }
-        public RelayCommand RemoveTagCommand
-        {
-            get
-            {
-                return _removeTagCommand ??= new RelayCommand(param => RemoveTagCommandExecute(), param => CanRemoveTagCommandExecute());
-            }
-        }
-        public RelayCommand RemovePreviousDateCommand
-        {
-            get
-            {
-                return _removePreviousDateCommand ??= new RelayCommand(param => RemovePreviousDateCommandExecute(), param => CanRemovePreviousDateCommandExecute());
-            }
-        }
-        public void RemoveTagCommandExecute()
-        {
-            Tags.Remove(TagToRemove);
-        }
-        public void RemovePreviousDateCommandExecute()
-        {
-            PreviousEventDates.Remove(PreviousDateToRemove);
-        }
-        public bool CanRemoveTagCommandExecute()
-        {
-            return TagToRemove != null;
-        }
-        public bool CanRemovePreviousDateCommandExecute()
-        {
-            return PreviousDateToRemove != default;
-        }
-        
-        public RelayCommand AddTagCommand
-        {
-            get
-            {
-                return _addTagCommand ??= new RelayCommand(param => AddTagCommandExecute(), param => CanAddTagCommandExecute());
-            }
-        }
-        public RelayCommand AddPreviousDateCommand
-        {
-            get
-            {
-                return _addPreviousDateCommand ??= new RelayCommand(param => AddPreviousDateCommandExecute(), param => CanAddPreviousDateCommandExecute());
-            }
-        }
         public ComboBoxData<Tag> SelectedTag
         {
-            get
-            {
-                return _selectedTag;
-            }
+            get { return _selectedTag; }
             set
             {
                 _selectedTag = value;
@@ -99,10 +42,7 @@ namespace EventLocator.Domain.Events.Add
         }
         public string Label
         {
-            get
-            {
-                return _label;
-            }
+            get { return _label; }
             set
             {
                 _label = value;
@@ -112,10 +52,7 @@ namespace EventLocator.Domain.Events.Add
 
         public string Name
         {
-            get
-            {
-                return _name;
-            }
+            get { return _name; }
             set
             {
                 _name = value;
@@ -125,10 +62,7 @@ namespace EventLocator.Domain.Events.Add
 
         public string Description
         {
-            get
-            {
-                return _description;
-            }
+            get { return _description; }
             set
             {
                 _description = value;
@@ -138,10 +72,7 @@ namespace EventLocator.Domain.Events.Add
 
         public ComboBoxData<EventType> EventType
         {
-            get
-            {
-                return _eventType;
-            }
+            get { return _eventType; }
             set
             {
                 _eventType = value;
@@ -151,10 +82,7 @@ namespace EventLocator.Domain.Events.Add
 
         public ComboBoxData<Attendance> Attendance
         {
-            get
-            {
-                return _attendance;
-            }
+            get { return _attendance; }
             set
             {
                 _attendance = value;
@@ -164,10 +92,7 @@ namespace EventLocator.Domain.Events.Add
 
         public string IconUrl
         {
-            get
-            {
-                return _iconUrl;
-            }
+            get { return _iconUrl; }
             set
             {
                 _iconUrl = value;
@@ -177,10 +102,7 @@ namespace EventLocator.Domain.Events.Add
 
         public bool IsCharity
         {
-            get
-            {
-                return _isCharity;
-            }
+            get { return _isCharity; }
             set
             {
                 _isCharity = value;
@@ -190,10 +112,7 @@ namespace EventLocator.Domain.Events.Add
 
         public string AverageHostingExpenses
         {
-            get
-            {
-                return _averageHostingExpenses;
-            }
+            get { return _averageHostingExpenses; }
             set
             {
                 _averageHostingExpenses = value;
@@ -203,10 +122,7 @@ namespace EventLocator.Domain.Events.Add
 
         public string Country
         {
-            get
-            {
-                return _country;
-            }
+            get { return _country; }
             set
             {
                 _country = value;
@@ -216,10 +132,7 @@ namespace EventLocator.Domain.Events.Add
 
         public string City
         {
-            get
-            {
-                return _city;
-            }
+            get { return _city; }
             set
             {
                 _city = value;
@@ -237,10 +150,7 @@ namespace EventLocator.Domain.Events.Add
         }
         public ObservableCollection<DateTime> PreviousEventDates
         {
-            get
-            {
-                return _previousEventDates;
-            }
+            get { return _previousEventDates; }
             set
             {
                 _previousEventDates = value;
@@ -250,10 +160,7 @@ namespace EventLocator.Domain.Events.Add
 
         public DateTime EventDate
         {
-            get
-            {
-                return _eventDate;
-            }
+            get { return _eventDate; }
             set
             {
                 _eventDate = value;
@@ -262,10 +169,7 @@ namespace EventLocator.Domain.Events.Add
         }
         public ObservableCollection<Tag> Tags
         {
-            get
-            {
-                return _tags;
-            }
+            get { return _tags; }
             set
             {
                 _tags = value;
@@ -293,33 +197,70 @@ namespace EventLocator.Domain.Events.Add
         public List<ComboBoxData<Attendance>> AttendanceDropdownOptions { get; set; }
         public List<ComboBoxData<EventType>> EventTypeDropdownOptions { get; set; }
         public List<ComboBoxData<Tag>> TagDropdownOptions { get; set; }
-        public override void AddAfterOk()
+        #endregion properties
+        #region constructors
+        public AddEventViewModel() 
         {
-            base.AddAfterOk();
-            Event newEvent = new(
-                Guid.NewGuid(),
-                Label,
-                Name,
-                Description,
-                EventType.Value,
-                Attendance.Value,
-                IconUrl,
-                IsCharity,
-                decimal.Parse(AverageHostingExpenses),
-                Country,
-                City,
-                new List<DateTime>(PreviousEventDates),
-                EventDate,
-                new List<Tag>(Tags)
-            );
-            Repository.Instance.AddEvent(newEvent);
+            AttendanceDropdownOptions = Repository.Instance.attendanceDropdownOptions();
+            EventTypeDropdownOptions = Repository.Instance.eventTypeDropdownOptions();
+            TagDropdownOptions = Repository.Instance.tagDropdownOptions();
+        }
+        #endregion constructors
+        #region commands
+        private RelayCommand _addTagCommand;
+        private RelayCommand _addPreviousDateCommand;
+        private RelayCommand _removeTagCommand;
+        private RelayCommand _removePreviousDateCommand;
+        public RelayCommand AddTagCommand
+        {
+            get
+            {
+                return _addTagCommand ??= new RelayCommand(param => AddTagCommandExecute(), param => CanAddTagCommandExecute());
+            }
+        }
+        public RelayCommand AddPreviousDateCommand
+        {
+            get
+            {
+                return _addPreviousDateCommand ??= new RelayCommand(param => AddPreviousDateCommandExecute(), param => CanAddPreviousDateCommandExecute());
+            }
+        }
+        public RelayCommand RemoveTagCommand
+        {
+            get
+            {
+                return _removeTagCommand ??= new RelayCommand(param => RemoveTagCommandExecute(), param => CanRemoveTagCommandExecute());
+            }
+        }
+        public RelayCommand RemovePreviousDateCommand
+        {
+            get
+            {
+                return _removePreviousDateCommand ??= new RelayCommand(param => RemovePreviousDateCommandExecute(), param => CanRemovePreviousDateCommandExecute());
+            }
+        }
+        public void RemoveTagCommandExecute()
+        {
+            Tags.Remove(TagToRemove);
+        }
+        public bool CanRemoveTagCommandExecute()
+        {
+            return TagToRemove != null;
+        }
+        public void RemovePreviousDateCommandExecute()
+        {
+            PreviousEventDates.Remove(PreviousDateToRemove);
+        }
+        public bool CanRemovePreviousDateCommandExecute()
+        {
+            return PreviousDateToRemove != default;
         }
         public void AddTagCommandExecute()
         {
-            if(tagAlreadyAdded(SelectedTag.Value))
+            if (tagAlreadyAdded(SelectedTag.Value))
             {
                 return;
-            }   
+            }
             else
             {
                 Tags.Add(SelectedTag.Value);
@@ -332,7 +273,7 @@ namespace EventLocator.Domain.Events.Add
         }
         public void AddPreviousDateCommandExecute()
         {
-            if(dateAlreadyAdded(SelectedPreviousDate))
+            if (dateAlreadyAdded(SelectedPreviousDate))
             {
                 return;
             }
@@ -345,7 +286,31 @@ namespace EventLocator.Domain.Events.Add
         {
             return SelectedPreviousDate != default;
         }
-        
+        public override void AddAfterOk()
+        {
+            base.AddAfterOk();
+            Event newEvent = new()
+            {
+                Id = Guid.NewGuid(),
+                Label = Label,
+                Name = Name,
+                Description = Description,
+                Type = EventType.Value,
+                Attendance = Attendance.Value,
+                IconUrl = IconUrl,
+                IsCharity = IsCharity,
+                AverageHostingExpenses = decimal.Parse(AverageHostingExpenses),
+                Country = Country,
+                City = City,
+                PreviousEventDates = new List<DateTime>(PreviousEventDates),
+                EventDate = EventDate,
+                Tags = new List<Tag>(Tags)
+            };
+
+            Repository.Instance.AddEvent(newEvent);
+        }
+        #endregion commands
+        #region functions
         private bool tagAlreadyAdded(Tag checkedTag)
         {
             Tag? existingTag = Tags.FirstOrDefault(foundTag => foundTag.Id == checkedTag.Id);
@@ -370,5 +335,6 @@ namespace EventLocator.Domain.Events.Add
                 return false;
             }
         }
+        #endregion functions
     }
 }

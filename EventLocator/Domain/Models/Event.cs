@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ namespace EventLocator.Domain.Models
         private string _label;
         private string _name;
         private string _description;
+        private Guid _eventTypeId;
         private EventType? _type;
         private Attendance _attendance;
         private string? _iconUrl;
@@ -21,39 +23,6 @@ namespace EventLocator.Domain.Models
         private List<DateTime> _previousEventDates;
         private DateTime _eventDate;
         private List<Tag> _tags;
-
-        public Event(
-            Guid id,
-            string label, 
-            string name, 
-            string description,
-            EventType? type, 
-            Attendance attendance,
-            string iconUrl, 
-            bool isCharity, 
-            decimal averageHostingExpenses, 
-            string country, 
-            string city, 
-            List<DateTime> previousEventDates, 
-            DateTime eventDate,
-            List<Tag> tags
-        )
-        {
-            Id = id;
-            Label = label;
-            Name = name;
-            Description = description;
-            Type = type;
-            Attendance = attendance;
-            IconUrl = iconUrl;
-            IsCharity = isCharity;
-            AverageHostingExpenses = averageHostingExpenses;
-            Country = country;
-            City = city;
-            PreviousEventDates = previousEventDates;
-            EventDate = eventDate;
-            Tags = tags;
-        }
         public string Label
         { 
             get
@@ -92,7 +61,16 @@ namespace EventLocator.Domain.Models
                 OnPropertyChanged(nameof(Description)); 
             }
         }
-
+        public Guid EventTypeId
+        {
+            get { return _eventTypeId; }
+            set
+            {
+                _eventTypeId = value;
+                OnPropertyChanged(nameof(EventTypeId));
+            }
+        }
+        
         public EventType Type
         {
             get
@@ -183,7 +161,7 @@ namespace EventLocator.Domain.Models
                 OnPropertyChanged(nameof(City));
             }
         }
-
+        [Column(TypeName = "timestamp without time zone[]")]
         public List<DateTime> PreviousEventDates
         {
             get
@@ -196,7 +174,7 @@ namespace EventLocator.Domain.Models
                 OnPropertyChanged(nameof(PreviousEventDates));
             }
         }
-
+        [Column(TypeName = "timestamp without time zone")]
         public DateTime EventDate
         {
             get

@@ -165,7 +165,7 @@ namespace EventLocator.Domain.Events.Index
         #region constructors
         public IndexEventsViewModel() 
         {
-            Entities = new ObservableCollection<Event>(Repository.Instance.Events);
+            Entities = new ObservableCollection<Event>(Repository.Instance.GetAllEvents());
             SearchedEntities = Entities;
             
             EventTypeComboBoxOptions = Repository.Instance.eventTypeDropdownOptions();
@@ -199,7 +199,7 @@ namespace EventLocator.Domain.Events.Index
         public override void DeleteAfterOk(Event item)
         {
             base.DeleteAfterOk(item);
-            Repository.Instance.RemoveEvent(item.Id);
+            Repository.Instance.DeleteEvent(item.Id);
             LoadTableData();
         }
         public override void SearchCommandExecute()
@@ -267,6 +267,11 @@ namespace EventLocator.Domain.Events.Index
         #endregion commands
 
         #region functions
+        public override void LoadTableData()
+        {
+            Entities = new ObservableCollection<Event>(Repository.Instance.GetAllEvents());
+            SearchedEntities = Entities;
+        }
         public override void FilterEntities()
         {
             base.FilterEntities();
