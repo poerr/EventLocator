@@ -49,7 +49,14 @@ namespace EventLocator.Domain.Tags.Add
         public override void AddAfterOk()
         {
             base.AddAfterOk();
-            Repository.Instance.AddTag(new Tag(Guid.NewGuid(), Label, Color, Description));
+            Tag newTag = new()
+            {
+                Id = Guid.NewGuid(),
+                Label = Label,
+                Color = Color,
+                Description = Description
+            };
+            Repository.Instance.AddTag(newTag);
         }
         #endregion commands
     }

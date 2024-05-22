@@ -60,7 +60,14 @@ namespace EventLocator.Domain.Tags.Edit
         public override void EditAfterOk()
         {
             base.EditAfterOk();
-            Repository.Instance.EditTag(new Tag(Id, Label, Color, Description));
+            Tag editedTag = new()
+            {
+                Id = Id,
+                Label = Label,
+                Color = Color,
+                Description = Description,
+            };
+            Repository.Instance.EditTag(editedTag);
         }
         #endregion commands
     }

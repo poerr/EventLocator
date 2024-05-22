@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EventLocator.Domain.Events.Edit"
         mc:Ignorable="d"
-        Title="EditEventView" Height="450" Width="800">
+        Title="EditEventView" Height="700" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -22,51 +22,142 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock FontWeight="Bold" Grid.Row="0" Grid.ColumnSpan="2">Edit event</TextBlock>
+        <TextBlock FontWeight="Bold" Grid.Row="0" Grid.ColumnSpan="2">Add event</TextBlock>
 
         <Label Content="Label:" Grid.Row="1" Grid.Column="0"/>
-        <TextBox x:Name="Label" Text="{Binding Path=Label, NotifyOnSourceUpdated=True, Mode=TwoWay}" Grid.Row="1" Grid.Column="1"/>
+        <TextBox x:Name="Label" Text="{Binding Path=Label, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="1" Grid.Column="1"/>
 
         <Label Content="Name:" Grid.Row="2" Grid.Column="0"/>
-        <TextBox x:Name="Name" Grid.Row="2" Grid.Column="1"/>
+        <TextBox x:Name="Name" Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="2" Grid.Column="1"/>
 
         <Label Content="Description:" Grid.Row="3" Grid.Column="0"/>
-        <TextBox x:Name="Description" Grid.Row="3" Grid.Column="1"/>
+        <TextBox x:Name="Description" Text="{Binding Path=Description, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="3" Grid.Column="1"/>
 
         <Label Content="Attendance:" Grid.Row="4" Grid.Column="0"/>
-        <TextBox x:Name="Attendance" Grid.Row="4" Grid.Column="1"/>
+        <ComboBox 
+        x:Name="Attendance" 
+        ItemsSource="{Binding Path=AttendanceDropdownOptions}" 
+        SelectedItem="{Binding Path=Attendance, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+        Grid.Row="4" Grid.Column="1"
+    >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
 
         <Label Content="Event type:" Grid.Row="5" Grid.Column="0"/>
-        <TextBox x:Name="EventType" Grid.Row="5" Grid.Column="1"/>
+        <ComboBox 
+        x:Name="EventType" 
+        ItemsSource="{Binding Path=EventTypeDropdownOptions}" 
+        SelectedItem="{Binding Path=EventType, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+        Grid.Row="5" Grid.Column="1"
+    >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
 
-        <Label Content="Icon:" Grid.Row="6" Grid.Column="0"/>
-        <TextBox x:Name="Icon" Grid.Row="6" Grid.Column="1"/>
+        <Button Content="Select icon" Click="SelectImage_Click" Grid.Row="6" Grid.Column="0"></Button>
+        <Image x:Name="SelectedImage" Stretch="Uniform" Width="50" Grid.Row="6" Grid.Column="1" Source="{Binding Path=IconUrl, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
         <Label Content="Charity:" Grid.Row="7" Grid.Column="0"/>
-        <TextBox x:Name="Charity" Grid.Row="7" Grid.Column="1"/>
+        <CheckBox x:Name="Charity" IsChecked="{Binding Path=IsCharity, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="7" Grid.Column="1"/>
 
         <Label Content="Expenses:" Grid.Row="8" Grid.Column="0"/>
-        <TextBox x:Name="Expenses" Grid.Row="8" Grid.Column="1"/>
+        <TextBox x:Name="Expenses" Text="{Binding Path=AverageHostingExpenses, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="8" Grid.Column="1"/>
 
         <Label Content="Country:" Grid.Row="9" Grid.Column="0"/>
-        <TextBox x:Name="Country" Grid.Row="9" Grid.Column="1"/>
+        <TextBox x:Name="Country" Text="{Binding Path=Country, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="9" Grid.Column="1"/>
 
         <Label Content="City:" Grid.Row="10" Grid.Column="0"/>
-        <TextBox x:Name="City" Grid.Row="10" Grid.Column="1"/>
+        <TextBox x:Name="City" Text="{Binding Path=City, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="10" Grid.Column="1"/>
 
         <Label Content="Previous dates:" Grid.Row="11" Grid.Column="0"/>
-        <TextBox x:Name="PreviousDates" Grid.Row="11" Grid.Column="1"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="11" Grid.Column="1">
+            <DatePicker SelectedDate="{Binding Path=SelectedPreviousDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <Button Command="{Binding AddPreviousDateCommand}" Content="Add date"></Button>
+        </StackPanel>
 
         <Label Content="Event date:" Grid.Row="12" Grid.Column="0"/>
-        <TextBox x:Name="EventDate" Grid.Row="12" Grid.Column="1"/>
+        <DatePicker x:Name="EventDate" SelectedDate="{Binding Path=EventDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="12" Grid.Column="1"/>
 
-        <Button Click="Cancel_Click" Command="{Binding OkCommand}" Grid.Row="13" Grid.Column="0"></Button>
-        <Button Click="Cancel_Click" Command="{Binding CancelCommand}" Grid.Row="13" Grid.Column="1"></Button>
+        <Label Content="Tags:" Grid.Row="13" Grid.Column="0"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="13" Grid.Column="1">
+            <ComboBox 
+            x:Name="Tags" 
+            ItemsSource="{Binding Path=TagDropdownOptions}" 
+            SelectedItem="{Binding Path=SelectedTag, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Name}"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button Command="{Binding AddTagCommand}" Content="Add tag"></Button>
+        </StackPanel>
+
+        <Label Content="Tags:" Grid.Row="14" Grid.Column="0"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="14" Grid.Column="1">
+            <ListBox 
+                x:Name="TagsListed" 
+                SelectedItem="{Binding Path=TagToRemove, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                ItemsSource="{Binding Path=Tags}"
+            >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Label}"></TextBlock>
+
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button Command="{Binding RemoveTagCommand}" Content="Remove"></Button>
+        </StackPanel>
+
+
+        <Label Content="Tags:" Grid.Row="15" Grid.Column="0"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="15" Grid.Column="1">
+            <ListBox 
+                x:Name="DatesListed" 
+                SelectedItem="{Binding Path=PreviousDateToRemove, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                ItemsSource="{Binding Path=PreviousEventDates}"
+            >
+
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding}"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button Command="{Binding RemovePreviousDateCommand}" Content="Remove"></Button>
+        </StackPanel>
+
+        <Button Click="Edit_Click" Command="{Binding OkCommand}" Grid.Row="16" Grid.Column="0"></Button>
+        <Button Click="Cancel_Click" Command="{Binding CancelCommand}" Grid.Row="16" Grid.Column="1"></Button>
     </Grid>
 </Window>

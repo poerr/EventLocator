@@ -14,13 +14,13 @@ namespace EventLocator.Domain.Models
         private string _description;
         private List<Event> _events;
 
-        public Tag(Guid id, string label, string color, string description)
-        {
-            Id = id;
-            Label = label;
-            Color = color;
-            Description = description;
-        }
+        //public Tag(Guid id, string label, string color, string description)
+        //{
+        //    Id = id;
+        //    Label = label;
+        //    Color = color;
+        //    Description = description;
+        //}
         public string Label
         {
             get

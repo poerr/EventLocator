@@ -1,4 +1,6 @@
-﻿using EventLocator.Domain.Models;
+﻿using EventLocator.Domain.Events.Add;
+using EventLocator.Domain.Models;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,12 +24,37 @@ namespace EventLocator.Domain.Events.Edit
     {
         public EditEventView(Event selectedEvent)
         {
-            //DataContext = new EditEventViewModel(selectedEvent);
+            DataContext = new EditEventViewModel(selectedEvent);
             InitializeComponent();
+        }
+        private void Edit_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as EditEventViewModel).EditAfterOk();
+            Close();
         }
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+        private void SelectImage_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new()
+            {
+                Filter = "Image files (*.jpg, *.jpeg, *.png)|*.jpg;*.jpeg;*.png|All files (*.*)|*.*"
+            };
+
+            bool? result = openFileDialog.ShowDialog();
+
+            if (result == true)
+            {
+                string filePath = openFileDialog.FileName;
+
+                BitmapImage bitmap = new();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(filePath);
+                bitmap.EndInit();
+                SelectedImage.Source = bitmap;
+            }
         }
     }
 }

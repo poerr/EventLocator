@@ -23,23 +23,13 @@ namespace EventLocator.Domain.Events.Add
         private string _averageHostingExpenses;
         private string _country;
         private string _city;
-        private DateTime _selectedPreviousDate;
-        private ObservableCollection<DateTime> _previousEventDates = [];
         private DateTime _eventDate;
         private ObservableCollection<Tag> _tags = [];
+        private ObservableCollection<DateTime> _previousEventDates = [];
         private ComboBoxData<Tag> _selectedTag;
+        private DateTime _selectedPreviousDate;
         private Tag _tagToRemove;
         private DateTime _previousDateToRemove;
-
-        public ComboBoxData<Tag> SelectedTag
-        {
-            get { return _selectedTag; }
-            set
-            {
-                _selectedTag = value;
-                OnPropertyChanged(nameof(SelectedTag));
-            }
-        }
         public string Label
         {
             get { return _label; }
@@ -49,7 +39,6 @@ namespace EventLocator.Domain.Events.Add
                 OnPropertyChanged(nameof(Label));
             }
         }
-
         public string Name
         {
             get { return _name; }
@@ -59,7 +48,6 @@ namespace EventLocator.Domain.Events.Add
                 OnPropertyChanged(nameof(Name));
             }
         }
-
         public string Description
         {
             get { return _description; }
@@ -69,7 +57,6 @@ namespace EventLocator.Domain.Events.Add
                 OnPropertyChanged(nameof(Description));
             }
         }
-
         public ComboBoxData<EventType> EventType
         {
             get { return _eventType; }
@@ -79,7 +66,6 @@ namespace EventLocator.Domain.Events.Add
                 OnPropertyChanged(nameof(EventType));
             }
         }
-
         public ComboBoxData<Attendance> Attendance
         {
             get { return _attendance; }
@@ -89,7 +75,6 @@ namespace EventLocator.Domain.Events.Add
                 OnPropertyChanged(nameof(Attendance));
             }
         }
-
         public string IconUrl
         {
             get { return _iconUrl; }
@@ -99,7 +84,6 @@ namespace EventLocator.Domain.Events.Add
                 OnPropertyChanged(nameof(IconUrl));
             }
         }
-
         public bool IsCharity
         {
             get { return _isCharity; }
@@ -109,7 +93,6 @@ namespace EventLocator.Domain.Events.Add
                 OnPropertyChanged(nameof(IsCharity));
             }
         }
-
         public string AverageHostingExpenses
         {
             get { return _averageHostingExpenses; }
@@ -119,7 +102,6 @@ namespace EventLocator.Domain.Events.Add
                 OnPropertyChanged(nameof(AverageHostingExpenses));
             }
         }
-
         public string Country
         {
             get { return _country; }
@@ -129,7 +111,6 @@ namespace EventLocator.Domain.Events.Add
                 OnPropertyChanged(nameof(Country));
             }
         }
-
         public string City
         {
             get { return _city; }
@@ -139,25 +120,6 @@ namespace EventLocator.Domain.Events.Add
                 OnPropertyChanged(nameof(City));
             }
         }
-        public DateTime SelectedPreviousDate
-        {
-            get { return _selectedPreviousDate; }
-            set
-            {
-                _selectedPreviousDate = value;
-                OnPropertyChanged(nameof(SelectedPreviousDate));
-            }
-        }
-        public ObservableCollection<DateTime> PreviousEventDates
-        {
-            get { return _previousEventDates; }
-            set
-            {
-                _previousEventDates = value;
-                OnPropertyChanged(nameof(PreviousEventDates));
-            }
-        }
-
         public DateTime EventDate
         {
             get { return _eventDate; }
@@ -174,6 +136,33 @@ namespace EventLocator.Domain.Events.Add
             {
                 _tags = value;
                 OnPropertyChanged(nameof(Tags));
+            }
+        }
+        public ObservableCollection<DateTime> PreviousEventDates
+        {
+            get { return _previousEventDates; }
+            set
+            {
+                _previousEventDates = value;
+                OnPropertyChanged(nameof(PreviousEventDates));
+            }
+        }
+        public ComboBoxData<Tag> SelectedTag
+        {
+            get { return _selectedTag; }
+            set
+            {
+                _selectedTag = value;
+                OnPropertyChanged(nameof(SelectedTag));
+            }
+        }
+        public DateTime SelectedPreviousDate
+        {
+            get { return _selectedPreviousDate; }
+            set
+            {
+                _selectedPreviousDate = value;
+                OnPropertyChanged(nameof(SelectedPreviousDate));
             }
         }
         public Tag TagToRemove
@@ -265,7 +254,6 @@ namespace EventLocator.Domain.Events.Add
             {
                 Tags.Add(SelectedTag.Value);
             }
-
         }
         public bool CanAddTagCommandExecute()
         {

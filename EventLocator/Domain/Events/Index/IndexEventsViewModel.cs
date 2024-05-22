@@ -161,13 +161,9 @@ namespace EventLocator.Domain.Events.Index
             }
         }
         #endregion properties
-
         #region constructors
         public IndexEventsViewModel() 
-        {
-            Entities = new ObservableCollection<Event>(Repository.Instance.GetAllEvents());
-            SearchedEntities = Entities;
-            
+        {            
             EventTypeComboBoxOptions = Repository.Instance.eventTypeDropdownOptions();
             AttendanceComboBoxOptions = Repository.Instance.attendanceDropdownOptions();
 
@@ -175,7 +171,6 @@ namespace EventLocator.Domain.Events.Index
             FilterEntities();
         }
         #endregion constructors
-
         #region commands
         public override void AddCommandExecute()
         {
@@ -265,7 +260,6 @@ namespace EventLocator.Domain.Events.Index
             base.ClearSearchCommandExecute();
         }
         #endregion commands
-
         #region functions
         public override void LoadTableData()
         {

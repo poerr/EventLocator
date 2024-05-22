@@ -1,4 +1,5 @@
 ﻿using EventLocator.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,7 @@ namespace EventLocator.Data
         #region events
         public IEnumerable<Event> GetAllEvents()
         {
-            return _dbContext.Events.ToList();
+            return _dbContext.Events.Include(e=> e.Tags).ToList();
         }
         public Event? GetEventById(Guid id)
         {

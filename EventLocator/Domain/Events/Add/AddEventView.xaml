@@ -156,7 +156,7 @@
             <Button Command="{Binding RemovePreviousDateCommand}" Content="Remove"></Button>
         </StackPanel>
         
-        <Button Click="Cancel_Click" Command="{Binding OkCommand}" Grid.Row="16" Grid.Column="0"></Button>
+        <Button Click="Add_Click" Command="{Binding OkCommand}" Grid.Row="16" Grid.Column="0"></Button>
         <Button Click="Cancel_Click" Command="{Binding CancelCommand}" Grid.Row="16" Grid.Column="1"></Button>
     </Grid>
 </Window>
