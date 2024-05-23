@@ -80,6 +80,14 @@ namespace EventLocator.Data
                 return false;
             }
         }
+        public IEnumerable<Event> GetListEvents()
+        {
+            return _dbContext.Events.Where(e => e.Position_X == null || e.Position_Y == null);
+        }
+        public IEnumerable<Event> GetMapEvents()
+        {
+            return _dbContext.Events.Where(e => e.Position_X != null && e.Position_Y != null);
+        }
         #endregion events
         #region eventTypes
         public IEnumerable<EventType> GetAllEventTypes()

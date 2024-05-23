@@ -23,12 +23,11 @@ namespace EventLocator.Domain.Models
         private List<DateTime> _previousEventDates;
         private DateTime _eventDate;
         private List<Tag> _tags;
+        private double? _position_X;
+        private double? _position_Y;
         public string Label
         { 
-            get
-            {
-                return _label;
-            }
+            get { return _label; }
             set
             {
                 _label = value;
@@ -38,10 +37,7 @@ namespace EventLocator.Domain.Models
 
         public string Name
         {
-            get
-            {
-                return _name;
-            }
+            get { return _name; }
             set
             {
                 _name = value;
@@ -51,10 +47,7 @@ namespace EventLocator.Domain.Models
 
         public string Description
         {
-            get
-            {
-                return _description;
-            }
+            get { return _description; }
             set
             {
                 _description = value;
@@ -73,10 +66,7 @@ namespace EventLocator.Domain.Models
         
         public EventType Type
         {
-            get
-            {
-                return _type;
-            }
+            get { return _type; }
             set
             {
                 _type = value;
@@ -86,10 +76,7 @@ namespace EventLocator.Domain.Models
 
         public Attendance Attendance
         {
-            get
-            {
-                return _attendance;
-            }
+            get { return _attendance; }
             set
             {
                 _attendance = value;
@@ -99,10 +86,7 @@ namespace EventLocator.Domain.Models
 
         public string? IconUrl
         {
-            get
-            {
-                return _iconUrl;
-            }
+            get { return _iconUrl; }
             set
             {
                 _iconUrl = value;
@@ -112,10 +96,7 @@ namespace EventLocator.Domain.Models
 
         public bool IsCharity
         {
-            get
-            {
-                return _isCharity;
-            }
+            get { return _isCharity; }
             set
             {
                 _isCharity = value;
@@ -125,10 +106,7 @@ namespace EventLocator.Domain.Models
 
         public decimal AverageHostingExpenses
         {
-            get
-            {
-                return _averageHostingExpenses;
-            }
+            get { return _averageHostingExpenses; }
             set
             {
                 _averageHostingExpenses = value;
@@ -138,10 +116,7 @@ namespace EventLocator.Domain.Models
 
         public string Country
         {
-            get
-            {
-                return _country;
-            }
+            get { return _country; }
             set
             {
                 _country = value;
@@ -151,10 +126,7 @@ namespace EventLocator.Domain.Models
 
         public string City
         {
-            get
-            {
-                return _city;
-            }
+            get { return _city; }
             set
             {
                 _city = value;
@@ -164,10 +136,7 @@ namespace EventLocator.Domain.Models
         [Column(TypeName = "timestamp without time zone[]")]
         public List<DateTime> PreviousEventDates
         {
-            get
-            {
-                return _previousEventDates;
-            }
+            get { return _previousEventDates; }
             set
             {
                 _previousEventDates = value;
@@ -178,26 +147,38 @@ namespace EventLocator.Domain.Models
         public DateTime EventDate
         {
             get
-            {
-                return _eventDate;
-            }
+            { return _eventDate; }
             set
             {
                 _eventDate = value;
                 OnPropertyChanged(nameof(EventDate));
             }
         }
-
         public List<Tag> Tags
         {
-            get
-            {
-                return _tags;
-            }
+            get { return _tags; }
             set
             {
                 _tags = value;
                 OnPropertyChanged(nameof(Tags));
+            }
+        }
+        public double? Position_X
+        { 
+            get { return _position_X; }
+            set
+            {
+                _position_X = value;
+                OnPropertyChanged(nameof(Position_X));
+            }
+        }
+        public double? Position_Y
+        {
+            get { return _position_Y; }
+            set
+            {
+                _position_Y = value;
+                OnPropertyChanged(nameof(Position_Y));
             }
         }
     }

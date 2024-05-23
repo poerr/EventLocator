@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using EventLocator.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EventLocator.Migrations
 {
     [DbContext(typeof(EventLocatorDbContext))]
-    partial class EventLocatorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240522201232_Event_Map_Position")]
+    partial class Event_Map_Position
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

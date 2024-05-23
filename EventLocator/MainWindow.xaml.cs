@@ -1,5 +1,6 @@
 ﻿using EventLocator.Data;
 using EventLocator.Domain.Events.Index;
+using EventLocator.Domain.Events.Map;
 using EventLocator.Domain.EventTypes.Index;
 using EventLocator.Domain.Tags.Index;
 using System.Text;
@@ -44,7 +45,7 @@ namespace EventLocator
             switch(pageName)
             {
                 case "Map":
-                    MainFrame.Content = new IndexEventsView();
+                    MainFrame.Content = new MapView();
                     break;
                 case "Events":
                     MainFrame.Content = new IndexEventsView();
