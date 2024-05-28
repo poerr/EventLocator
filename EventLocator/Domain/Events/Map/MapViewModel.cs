@@ -63,6 +63,20 @@ namespace EventLocator.Domain.Events.Map
             ListEvents.Remove(draggedEvent);
             MapEvents.Add(draggedEvent);
         }
+        public void MoveEventFromMapToList(Event draggedEvent)
+        {
+            draggedEvent.Position_X = null;
+            draggedEvent.Position_Y = null;
+
+            Repository.Instance.EditEvent(draggedEvent);
+
+            ListEvents.Add(draggedEvent);
+            MapEvents.Remove(draggedEvent);
+        }
+        public void MoveEventOnMap(Event draggedEvent)
+        {
+            Repository.Instance.EditEvent(draggedEvent);
+        }
         #endregion functions
     }
 }

@@ -21,6 +21,8 @@
             PreviewMouseLeftButtonDown="EventList_PreviewMouseLeftButtonDown" 
             MouseMove="EventList_MouseMove"
             AllowDrop="true"
+            Drop="ListView_Drop"
+            DragOver="ListView_DragOver"
         >
             
         </ListView>
