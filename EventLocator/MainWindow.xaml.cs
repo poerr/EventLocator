@@ -36,6 +36,8 @@ namespace EventLocator
             Left = 0;
 
             WindowState = WindowState.Maximized;
+
+            MainFrame.Navigate(new Uri("Domain/Events/Map/MapView.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)

@@ -23,8 +23,7 @@ namespace EventLocator.Domain.Events.Map
     public partial class MapView : Page
     {
         Point StartPoint = new();
-        private TextBlock? DraggedTextBlock;
-        private int counter = 0;
+        private Grid? DraggedTextBlock;
         public MapView()
         {
             DataContext = new MapViewModel();
@@ -76,11 +75,10 @@ namespace EventLocator.Domain.Events.Map
                 {
                     if (draggedEvent.Position_X == null && draggedEvent.Position_Y == null)
                     {
-                        TextBlock droppedTextBlock = CreateMapEventElement(draggedEvent);
-                        Map.Children.Add(droppedTextBlock);
+                        Grid droppedTextBlock = CreateMapEventElement(draggedEvent);
                         SetMapEventLocation(draggedEvent, droppedTextBlock, dropPosition);
+                        Map.Children.Add(droppedTextBlock);
                         (DataContext as MapViewModel).MoveEventFromListToMap(draggedEvent);
-                        counter++;
                     }
                     else
                     {
@@ -95,7 +93,7 @@ namespace EventLocator.Domain.Events.Map
         }
         private void TextBlock_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (sender is TextBlock textBlock)
+            if (sender is Grid textBlock)
             {
                 textBlock.CaptureMouse();
                 DraggedTextBlock = textBlock;
@@ -180,35 +178,134 @@ namespace EventLocator.Domain.Events.Map
         {
             foreach (Event e in (DataContext as MapViewModel).MapEvents)
             {
-                TextBlock droppedTextBlock = CreateMapEventElement(e);
+                Grid droppedTextBlock = CreateMapEventElement(e);
                 Canvas.SetLeft(droppedTextBlock, (double)e.Position_X);
                 Canvas.SetTop(droppedTextBlock, (double)e.Position_Y);
 
                 Map.Children.Add(droppedTextBlock);
             };
         }
-        private TextBlock CreateMapEventElement(Event draggedEvent)
+        private Grid CreateMapEventElement(Event draggedEvent)
         {
-            TextBlock textBlock = new()
+            Grid grid = new Grid
             {
-                Text = draggedEvent.Name,
-                DataContext = draggedEvent,
-                Background = new SolidColorBrush(Colors.LightBlue),
-                Padding = new Thickness(5),
-                Cursor = Cursors.Hand
+                Background = Brushes.Transparent
             };
-            textBlock.PreviewMouseLeftButtonDown += TextBlock_PreviewMouseLeftButtonDown;
-            textBlock.MouseMove += TextBlock_MouseMove;
-            textBlock.PreviewMouseLeftButtonUp += TextBlock_PreviewMouseLeftButtonUp;
-            return textBlock;
-        }
-        private static void SetMapEventLocation(Event draggedEvent, TextBlock element, Point newPosition)
-        {
-            Canvas.SetLeft(element, newPosition.X);
-            Canvas.SetTop(element, newPosition.Y);
 
-            draggedEvent.Position_X = newPosition.X;
-            draggedEvent.Position_Y = newPosition.Y;
+            // Add Row Definitions
+            grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+
+            // Create the TextBlock for the label
+            TextBlock textBlock = new TextBlock
+            {
+                Text = "#" + draggedEvent.Label,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Top,
+                Margin = new Thickness(5),
+                Foreground = Brushes.White,
+                FontWeight = FontWeights.Bold
+            };
+            Grid.SetRow(textBlock, 0);
+
+            // Create the Image for the icon
+            Image image = new Image
+            {
+                Source = new BitmapImage(new Uri(draggedEvent.IconUrl)),
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                Stretch = Stretch.Uniform,
+                Width = 30,
+                Margin = new Thickness(5)
+            };
+            Grid.SetRow(image, 1);
+
+            // Add the TextBlock and Image to the Grid
+            grid.Children.Add(textBlock);
+            grid.Children.Add(image);
+
+            // Create the Rectangle with the desired properties
+            Rectangle rectangle = new Rectangle
+            {
+                Stroke = Brushes.White,
+                StrokeThickness = 2,
+                RadiusX = 10,
+                RadiusY = 10,
+                Fill = Brushes.Transparent
+            };
+
+            // Create a Border to hold the Rectangle and Grid
+            Border border = new Border
+            {
+                Child = grid,
+                BorderBrush = Brushes.White,
+                BorderThickness = new Thickness(2),
+                CornerRadius = new CornerRadius(10),
+                Background = new SolidColorBrush(Color.FromArgb(50, 255, 255, 255))
+            };
+
+            // Create a Grid to layer the Rectangle and the Border
+            Grid container = new()
+            {
+                DataContext = draggedEvent
+            };
+            container.Children.Add(rectangle);
+            container.Children.Add(border);
+
+
+            container.PreviewMouseLeftButtonDown += TextBlock_PreviewMouseLeftButtonDown;
+            container.MouseMove += TextBlock_MouseMove;
+            container.PreviewMouseLeftButtonUp += TextBlock_PreviewMouseLeftButtonUp;
+            return container;
+        }
+        private void SetMapEventLocation(Event draggedEvent, Grid element, Point newPosition)
+        {
+            double newTopLeftX = newPosition.X - element.RenderSize.Width / 2;
+            double newTopLeftY = newPosition.Y - element.RenderSize.Height / 2;
+
+            bool isOverlapping = IsEventOverlapping(((Event)element.DataContext).Id, newTopLeftX, newTopLeftY, element.RenderSize.Width, element.RenderSize.Height);
+
+            if(isOverlapping)
+            {
+                return;
+            }
+            else
+            {
+                Canvas.SetLeft(element, newTopLeftX);
+                Canvas.SetTop(element, newTopLeftY);
+
+                draggedEvent.Position_X = newPosition.X;
+                draggedEvent.Position_Y = newPosition.Y;
+            }
+        }
+
+        private bool IsEventOverlapping(Guid draggedEventId, double topLeftX, double topLeftY, double width, double height)
+        {
+            Rect newRect = new(topLeftX, topLeftY, width, height);
+
+            foreach (UIElement element in Map.Children)
+            {
+
+                if (element is Grid)
+                {
+                    if(((Event)(element as Grid).DataContext).Id == draggedEventId)
+                    {
+                        return false;
+                    }
+                }
+
+                double existingTopLeftX = Canvas.GetLeft(element);
+                double existingTopLeftY = Canvas.GetTop(element);
+
+                Rect existingRect = new(existingTopLeftX, existingTopLeftY, element.RenderSize.Width, element.RenderSize.Height);
+
+                if (newRect.IntersectsWith(existingRect))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
         #endregion functions
     }

@@ -65,6 +65,10 @@ namespace EventLocator.Domain.Events.Map
         }
         public void MoveEventFromMapToList(Event draggedEvent)
         {
+            if(draggedEvent.Position_X == null && draggedEvent.Position_Y == null)
+            {
+                return;
+            }
             draggedEvent.Position_X = null;
             draggedEvent.Position_Y = null;
 
