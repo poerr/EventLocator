@@ -9,6 +9,10 @@
       Title="MapView">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="400"/>
             <ColumnDefinition Width="*"/>
@@ -17,16 +21,16 @@
         <ListView 
             Name="EventList" 
             Grid.Column="0"
+            Grid.RowSpan="2"
             ItemsSource="{Binding Path=ListEvents}"
             Background="#344C64"
             Width="400"
-            PreviewMouseLeftButtonDown="EventList_PreviewMouseLeftButtonDown" 
-            MouseMove="EventList_MouseMove"
+            PreviewMouseLeftButtonDown="List_PreviewMouseLeftButtonDown" 
+            MouseMove="List_MouseMove"
             AllowDrop="true"
-            Drop="ListView_Drop"
-            DragOver="ListView_DragOver"
-            HorizontalContentAlignment="Stretch"
-        >
+            Drop="List_Drop"
+            DragOver="List_DragOver"
+            HorizontalContentAlignment="Stretch">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border BorderBrush="White" BorderThickness="1" Margin="2" CornerRadius="5">
@@ -53,21 +57,39 @@
                                     </MultiBinding>
                                 </Label.Content>
                             </Label>
-                            <Label Style="{StaticResource ListItemLabel}" Content="{Binding Description}" Grid.Row="4" Grid.Column="0"></Label>
-                            <Image Source="{Binding IconUrl}" Grid.RowSpan="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 20 0"/>
+                            <Label 
+                                Style="{StaticResource ListItemLabel}" 
+                                Content="{Binding Description}" 
+                                Grid.Row="4" Grid.Column="0"/>
+                            <Image 
+                                Source="{Binding IconUrl}" 
+                                Grid.RowSpan="3" Grid.Column="1" 
+                                VerticalAlignment="Center" HorizontalAlignment="Right" 
+                                Margin="0 0 20 0"/>
                         </Grid>
                     </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
 
+        <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Stretch" Background="#344C64">
+            <Label 
+                Style="{StaticResource InputLabel}" 
+                Content="Filter events by name:" 
+                VerticalAlignment="Center" 
+                Margin="500, 0, 0, 0"/>
+            <TextBox 
+                Text="{Binding Path=MapEventsFilter, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                VerticalAlignment="Center"
+                TextChanged="Filter_TextChanged"/>
+        </StackPanel>
         <Canvas 
             Name="Map" 
             Grid.Column="1"
+            Grid.Row="1"
             AllowDrop="True" 
             DragOver="Map_DragOver" 
-            Drop="Map_Drop"
-        >
+            Drop="Map_Drop">
             <Canvas.Background>
                 <ImageBrush ImageSource="../../../Resources/Images/map.jpg"/>
             </Canvas.Background>

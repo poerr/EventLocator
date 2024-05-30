@@ -15,6 +15,7 @@ namespace EventLocator.Domain.Events.Map
         #region properties
         private ObservableCollection<Event> _listEvents;
         private ObservableCollection<Event> _mapEvents;
+        private ObservableCollection<Event> _filteredMapEvents;
         private string _mapEventsFilter;
         public ObservableCollection<Event> ListEvents
         {
@@ -32,6 +33,15 @@ namespace EventLocator.Domain.Events.Map
             {
                 _mapEvents = value;
                 OnPropertyChanged(nameof(MapEvents));
+            }
+        }
+        public ObservableCollection<Event> FilteredMapEvents
+        {
+            get { return _filteredMapEvents; }
+            set
+            {
+                _filteredMapEvents = value;
+                OnPropertyChanged(nameof(FilteredMapEvents));
             }
         }
         public string MapEventsFilter
@@ -55,6 +65,7 @@ namespace EventLocator.Domain.Events.Map
         {
             ListEvents = new ObservableCollection<Event>(Repository.Instance.GetListEvents());
             MapEvents = new ObservableCollection<Event>(Repository.Instance.GetMapEvents());
+            FilteredMapEvents = MapEvents;
         }
         public void MoveEventFromListToMap(Event draggedEvent)
         {
@@ -80,6 +91,21 @@ namespace EventLocator.Domain.Events.Map
         public void MoveEventOnMap(Event draggedEvent)
         {
             Repository.Instance.EditEvent(draggedEvent);
+        }
+        public void FilterMapEvents()
+        {
+            if(!string.IsNullOrEmpty(MapEventsFilter))
+            {
+                string filter = MapEventsFilter.ToLower();
+
+                FilteredMapEvents = new ObservableCollection<Event>(MapEvents.Where(
+                    filteredEvent => filteredEvent.Name.ToLower().Contains(filter)
+                ));
+            }
+            else
+            {
+                FilteredMapEvents = MapEvents;
+            }
         }
         #endregion functions
     }

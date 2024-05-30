@@ -22,19 +22,24 @@ namespace EventLocator.Domain.Events.Map
     /// </summary>
     public partial class MapView : Page
     {
+        #region properties
         Point StartPoint = new();
         private Grid? DraggedTextBlock;
+        #endregion properties
+        #region constructors
         public MapView()
         {
             DataContext = new MapViewModel();
             InitializeComponent();
             LoadMapEvents();
         }
-        private void EventList_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        #endregion constructors
+        #region list events
+        private void List_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             StartPoint = e.GetPosition(null);
         }
-        private void EventList_MouseMove(object sender, MouseEventArgs e)
+        private void List_MouseMove(object sender, MouseEventArgs e)
         {
             Point mousePos = e.GetPosition(null);
             Vector diff = StartPoint - mousePos;
@@ -56,6 +61,36 @@ namespace EventLocator.Domain.Events.Map
                 DragDrop.DoDragDrop(listViewItem, dragData, DragDropEffects.Move);
             }
         }
+        private void List_DragOver(object sender, DragEventArgs e)
+        {
+            if (!e.Data.GetDataPresent("event"))
+            {
+                e.Effects = DragDropEffects.None;
+            }
+            else
+            {
+                e.Effects = DragDropEffects.Move;
+            }
+        }
+        private void List_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent("event"))
+            {
+                Event draggedEvent = e.Data.GetData("event") as Event;
+
+                // Add event back to the ListView
+                (DataContext as MapViewModel).MoveEventFromMapToList(draggedEvent);
+                var numb = Map.Children;
+                // Remove from canvas
+                if (DraggedTextBlock != null)
+                {
+                    Map.Children.Remove(DraggedTextBlock);
+                    DraggedTextBlock = null;
+                }
+            }
+        }
+        #endregion list events
+        #region map events
         private void Map_DragOver(object sender, DragEventArgs e)
         {
             if (!e.Data.GetDataPresent("event") || e.Source == sender)
@@ -68,10 +103,10 @@ namespace EventLocator.Domain.Events.Map
             if (e.Data.GetDataPresent("event"))
             {
                 Event draggedEvent = e.Data.GetData("event") as Event;
-                
+
                 Point dropPosition = e.GetPosition(Map);
 
-                if(draggedEvent is Event)
+                if (draggedEvent is Event)
                 {
                     if (draggedEvent.Position_X == null && draggedEvent.Position_Y == null)
                     {
@@ -91,7 +126,9 @@ namespace EventLocator.Domain.Events.Map
                 }
             }
         }
-        private void TextBlock_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        #endregion map events
+        #region event events
+        private void Event_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (sender is Grid textBlock)
             {
@@ -101,36 +138,7 @@ namespace EventLocator.Domain.Events.Map
                 DragDrop.DoDragDrop(textBlock, dragData, DragDropEffects.Move);
             }
         }
-
-        private void ListView_DragOver(object sender, DragEventArgs e)
-        {
-            if (!e.Data.GetDataPresent("event"))
-            {
-                e.Effects = DragDropEffects.None;
-            }
-            else
-            {
-                e.Effects = DragDropEffects.Move;
-            }
-        }
-        private void ListView_Drop(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent("event"))
-            {
-                Event draggedEvent = e.Data.GetData("event") as Event;
-
-                // Add event back to the ListView
-                (DataContext as MapViewModel).MoveEventFromMapToList(draggedEvent);
-                var numb = Map.Children;
-                // Remove from canvas
-                if (DraggedTextBlock != null)
-                {
-                    Map.Children.Remove(DraggedTextBlock);
-                    DraggedTextBlock = null;
-                }
-            }
-        }
-        private void TextBlock_MouseMove(object sender, MouseEventArgs e)
+        private void Event_MouseMove(object sender, MouseEventArgs e)
         {
             if (sender is TextBlock textBlock && textBlock.IsMouseCaptured)
             {
@@ -151,8 +159,7 @@ namespace EventLocator.Domain.Events.Map
                 StartPoint = currentPoint;
             }
         }
-
-        private void TextBlock_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void Event_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (sender is TextBlock textBlock)
             {
@@ -160,6 +167,7 @@ namespace EventLocator.Domain.Events.Map
                 textBlock.ReleaseMouseCapture();
             }
         }
+        #endregion event events
         #region functions
         private static T FindAncestor<T>(DependencyObject current) where T : DependencyObject
         {
@@ -174,9 +182,15 @@ namespace EventLocator.Domain.Events.Map
             while (current != null);
             return null;
         }
+        private void Filter_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            (DataContext as MapViewModel).FilterMapEvents();
+            LoadMapEvents();
+        }
         private void LoadMapEvents()
         {
-            foreach (Event e in (DataContext as MapViewModel).MapEvents)
+            Map.Children.Clear();
+            foreach (Event e in (DataContext as MapViewModel).FilteredMapEvents)
             {
                 Grid droppedTextBlock = CreateMapEventElement(e);
                 Canvas.SetLeft(droppedTextBlock, (double)e.Position_X);
@@ -253,9 +267,9 @@ namespace EventLocator.Domain.Events.Map
             container.Children.Add(border);
 
 
-            container.PreviewMouseLeftButtonDown += TextBlock_PreviewMouseLeftButtonDown;
-            container.MouseMove += TextBlock_MouseMove;
-            container.PreviewMouseLeftButtonUp += TextBlock_PreviewMouseLeftButtonUp;
+            container.PreviewMouseLeftButtonDown += Event_PreviewMouseLeftButtonDown;
+            container.MouseMove += Event_MouseMove;
+            container.PreviewMouseLeftButtonUp += Event_PreviewMouseLeftButtonUp;
             return container;
         }
         private void SetMapEventLocation(Event draggedEvent, Grid element, Point newPosition)
@@ -278,14 +292,12 @@ namespace EventLocator.Domain.Events.Map
                 draggedEvent.Position_Y = newPosition.Y;
             }
         }
-
         private bool IsEventOverlapping(Guid draggedEventId, double topLeftX, double topLeftY, double width, double height)
         {
             Rect newRect = new(topLeftX, topLeftY, width, height);
 
             foreach (UIElement element in Map.Children)
             {
-
                 if (element is Grid)
                 {
                     if(((Event)(element as Grid).DataContext).Id == draggedEventId)
