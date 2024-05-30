@@ -2,8 +2,18 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:EventLocator"
+             xmlns:converters="clr-namespace:EventLocator.Converters"
              StartupUri="MainWindow.xaml">
+    
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <converters:MultiValueJoinConverter x:Key="MultiValueJoinConverter" />
+            <converters:DateTimeConverter x:Key="DateTimeConverter" />
+        </ResourceDictionary>
     </Application.Resources>
+
 </Application>

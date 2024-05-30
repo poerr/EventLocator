@@ -19,6 +19,7 @@ namespace EventLocator
     public partial class MainWindow : Window
     {
         private readonly Repository _repository;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -39,24 +40,24 @@ namespace EventLocator
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            MenuItem menuItem = sender as MenuItem;
-            string pageName = menuItem.Header.ToString();
-
-            switch(pageName)
+            Button menuButton = sender as Button;
+            switch(menuButton.Name)
             {
-                case "Map":
-                    MainFrame.Content = new MapView();
+                case "EventButton":
+                    MainFrame.Navigate(new Uri("Domain/Events/Index/IndexEventsView.xaml", UriKind.RelativeOrAbsolute));
                     break;
-                case "Events":
-                    MainFrame.Content = new IndexEventsView();
+                case "EventTypeButton":
+                    MainFrame.Navigate(new Uri("Domain/EventTypes/Index/IndexEventTypesView.xaml", UriKind.RelativeOrAbsolute));
                     break;
-                case "Event types":
-                    MainFrame.Content = new IndexEventTypesView();
+                case "TagButton":
+                    MainFrame.Navigate(new Uri("Domain/Tags/Index/IndexTagsView.xaml", UriKind.RelativeOrAbsolute));
                     break;
-                case "Tags":
-                    MainFrame.Content = new IndexTagsView();
+                case "MapButton":
+                    MainFrame.Navigate(new Uri("Domain/Events/Map/MapView.xaml", UriKind.RelativeOrAbsolute));
                     break;
-                case "Help":
+                case "Tutorial":
+                    break;
+                case "HelpButton":
                     break;
             }
         }

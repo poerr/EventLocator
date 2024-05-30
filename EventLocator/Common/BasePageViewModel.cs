@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Data;
 
 namespace EventLocator.Common
 {
@@ -153,6 +152,15 @@ namespace EventLocator.Common
         protected void RefreshDataOnDialog_Closed(object? sender, EventArgs e)
         {
             LoadTableData();
+        }
+        protected void NavigateToPage(string pageName, string entityName)
+        {
+            var mainWindow = (MainWindow)Application.Current.MainWindow;
+            var frame = mainWindow.MainFrame;
+
+            string uriPath = "Domain/" + entityName + "s" + "/" + pageName + "/" + pageName + entityName + "View.xaml";
+            //string uriPath = "../" + pageName + "/" + pageName + entityName + "View.xaml";
+            frame.Navigate(new Uri(uriPath, UriKind.RelativeOrAbsolute));
         }
         #endregion functions
     }

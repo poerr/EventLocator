@@ -6,14 +6,57 @@
         xmlns:local="clr-namespace:EventLocator"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    
     <DockPanel>
-        <Menu DockPanel.Dock="Top">
-            <MenuItem Header="Map" Click="MenuItem_Click"/>
-            <MenuItem Header="Events" Click="MenuItem_Click"/>
-            <MenuItem Header="Event types" Click="MenuItem_Click"/>
-            <MenuItem Header="Tags" Click="MenuItem_Click"/>
-            <MenuItem Header="Help" Click="MenuItem_Click"/>
-        </Menu>
+        <Grid DockPanel.Dock="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="250"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="EventButton" Click="MenuItem_Click" Style="{StaticResource NavigationButton}" Grid.Row="0" Grid.Column="0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Image Source="Resources/Images/event.png" Width="35"></Image>
+                    <Label Style="{StaticResource MenuLabel}">EVENTS</Label>
+                </StackPanel>
+            </Button>
+            <Button x:Name="EventTypeButton" Click="MenuItem_Click" Style="{StaticResource NavigationButton}" Grid.Row="0" Grid.Column="1">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Image Source="Resources/Images/event_type.png" Width="35"></Image>
+                    <Label Style="{StaticResource MenuLabel}">EVENT TYPES</Label>
+                </StackPanel>
+            </Button>
+            <Button x:Name="TagButton" Click="MenuItem_Click" Style="{StaticResource NavigationButton}" Grid.Row="0" Grid.Column="2">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Image Source="Resources/Images/tag.png" Width="35"></Image>
+                    <Label Style="{StaticResource MenuLabel}">TAGS</Label>
+                </StackPanel>
+            </Button>
+            <Button x:Name="MapButton" Click="MenuItem_Click" Style="{StaticResource NavigationButton}" Grid.Row="0" Grid.Column="3">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Image Source="Resources/Images/map.png" Width="35"></Image>
+                    <Label Style="{StaticResource MenuLabel}">MAP</Label>
+                </StackPanel>
+            </Button>
+            <Button x:Name="TutorialButton" Click="MenuItem_Click" Style="{StaticResource NavigationButton}" Grid.Row="0" Grid.Column="4">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Image Source="Resources/Images/tutorial.png" Width="35"></Image>
+                    <Label Style="{StaticResource MenuLabel}">TUTORIAL</Label>
+                </StackPanel>
+            </Button>
+            <Button x:Name="HelpButton" Click="MenuItem_Click" Style="{StaticResource NavigationButton}" Grid.Row="0" Grid.Column="5">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Image Source="Resources/Images/help.png" Width="35"></Image>
+                    <Label Style="{StaticResource MenuLabel}">HELP</Label>
+                </StackPanel>
+            </Button>
+        </Grid>
         <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
     </DockPanel>
 </Window>

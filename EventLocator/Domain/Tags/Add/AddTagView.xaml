@@ -1,4 +1,4 @@
-﻿<Window x:Class="EventLocator.Domain.Tags.Add.AddTagView"
+﻿<Page x:Class="EventLocator.Domain.Tags.Add.AddTagView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -21,14 +21,14 @@
 
         <Label Content="Add tag" Grid.Row="0" Grid.ColumnSpan="2"></Label>
 
-        <Label Content="Label" Grid.Row="1" Grid.Column="0"></Label>
+        <Label Style="{StaticResource InputLabel}" Content="Label" Grid.Row="1" Grid.Column="0"></Label>
         <TextBox x:Name="Label" Text="{Binding Path=Label, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" Grid.Row="1" Grid.Column="1"></TextBox>
         <Label Content="Color" Grid.Row="2" Grid.Column="0"></Label>
         <TextBox x:Name="Color" Text="{Binding Path=Color, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" Grid.Row="2" Grid.Column="1"></TextBox>
         <Label Content="Description" Grid.Row="3" Grid.Column="0"></Label>
         <TextBox x:Name="Description" Text="{Binding Path=Description, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" Grid.Row="3" Grid.Column="1"></TextBox>
 
-        <Button Content="Add" Click="Add_Click" Grid.Row="4" Grid.Column="0"></Button>
+        <Button Content="Add" Click="Add_Click" Grid.Row="4" Grid.Column="0" Style="{StaticResource AddButton}"></Button>
         <Button Content="Cancel" Click="Cancel_Click" Grid.Row="4" Grid.Column="1"></Button>
     </Grid>
-</Window>
+</Page>

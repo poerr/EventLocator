@@ -18,7 +18,7 @@ namespace EventLocator.Domain.Tags.Add
     /// <summary>
     /// Interaction logic for AddTagView.xaml
     /// </summary>
-    public partial class AddTagView : Window
+    public partial class AddTagView : Page
     {
         public AddTagView()
         {
@@ -29,11 +29,11 @@ namespace EventLocator.Domain.Tags.Add
         private void Add_Click(object sender, RoutedEventArgs e)
         {
             (DataContext as AddTagViewModel).AddAfterOk();
-            Close();
+            //Close();
         }
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            //Close();
         }
     }
 }

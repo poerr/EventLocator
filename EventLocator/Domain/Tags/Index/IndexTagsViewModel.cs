@@ -61,9 +61,7 @@ namespace EventLocator.Domain.Tags.Index
         public override void AddCommandExecute()
         {
             base.AddCommandExecute();
-            AddTagView addTagView = new();
-            addTagView.Closed += RefreshDataOnDialog_Closed;
-            addTagView.ShowDialog();
+            NavigateToPage("Add", "Tag");
         }
         public override void EditCommandExecute()
         {
