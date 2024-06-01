@@ -1,6 +1,7 @@
 ﻿using EventLocator.Common;
 using EventLocator.Data;
 using EventLocator.Domain.Models;
+using EventLocator.Validation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +10,12 @@ using System.Threading.Tasks;
 
 namespace EventLocator.Domain.Tags.Edit
 {
-    public class EditTagViewModel : BaseDialogViewModel
+    public class EditTagViewModel : BaseFormPageViewModel
     {
         #region properties
         private string _label;
         private string _color;
         private string _description;
-
         public Guid Id { get; set; }
         public string Label
         {
@@ -45,7 +45,6 @@ namespace EventLocator.Domain.Tags.Edit
             }
         }
         #endregion properties
-
         #region constructors
         public EditTagViewModel(Tag tag)
         {
@@ -53,13 +52,18 @@ namespace EventLocator.Domain.Tags.Edit
             Label = tag.Label;
             Color = tag.Color;
             Description = tag.Description;
+            EntityName = "Tag";
         }
         #endregion constructors
-
         #region commands
-        public override void EditAfterOk()
+        public override bool CanOkCommandExecute()
         {
-            base.EditAfterOk();
+            List<string> textInputsToCheck = [Label, Description];
+            return ValidationUtil.ValidateTextInputIsOnlyLetters(textInputsToCheck) &&
+                ValidationUtil.StringsHaveValue(textInputsToCheck);
+        }
+        public override void OkCommandExecute()
+        {
             Tag editedTag = new()
             {
                 Id = Id,
@@ -68,6 +72,7 @@ namespace EventLocator.Domain.Tags.Edit
                 Description = Description,
             };
             Repository.Instance.EditTag(editedTag);
+            base.OkCommandExecute();
         }
         #endregion commands
     }

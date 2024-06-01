@@ -46,13 +46,13 @@ namespace EventLocator
             switch(menuButton.Name)
             {
                 case "EventButton":
-                    MainFrame.Navigate(new Uri("Domain/Events/Index/IndexEventsView.xaml", UriKind.RelativeOrAbsolute));
+                    MainFrame.Navigate(new Uri("Domain/Events/Index/IndexEventView.xaml", UriKind.RelativeOrAbsolute));
                     break;
                 case "EventTypeButton":
-                    MainFrame.Navigate(new Uri("Domain/EventTypes/Index/IndexEventTypesView.xaml", UriKind.RelativeOrAbsolute));
+                    MainFrame.Navigate(new Uri("Domain/EventTypes/Index/IndexEventTypeView.xaml", UriKind.RelativeOrAbsolute));
                     break;
                 case "TagButton":
-                    MainFrame.Navigate(new Uri("Domain/Tags/Index/IndexTagsView.xaml", UriKind.RelativeOrAbsolute));
+                    MainFrame.Navigate(new Uri("Domain/Tags/Index/IndexTagView.xaml", UriKind.RelativeOrAbsolute));
                     break;
                 case "MapButton":
                     MainFrame.Navigate(new Uri("Domain/Events/Map/MapView.xaml", UriKind.RelativeOrAbsolute));

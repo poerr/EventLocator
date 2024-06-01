@@ -4,6 +4,7 @@ using EventLocator.Domain.Events.Add;
 using EventLocator.Domain.Models;
 using EventLocator.Domain.Tags.Add;
 using EventLocator.Domain.Tags.Edit;
+using EventLocator.Validation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,12 +14,12 @@ using System.Threading.Tasks;
 
 namespace EventLocator.Domain.Tags.Index
 {
-    public class IndexTagsViewModel : BasePageViewModel<Tag>
+    public class IndexTagViewModel : BasePageViewModel<Tag>
     {
         #region properties
-        private string _searchedLabel;
-        private string _searchedColor;
-        private string _searchedDescription;
+        private string _searchedLabel = "";
+        private string _searchedColor = "";
+        private string _searchedDescription = "";
 
         public string SearchedLabel
         {
@@ -48,9 +49,8 @@ namespace EventLocator.Domain.Tags.Index
             }
         }
         #endregion properties
-
         #region constructors
-        public IndexTagsViewModel()
+        public IndexTagViewModel()
         {
             LoadTableData();
             FilterEntities();
@@ -61,14 +61,12 @@ namespace EventLocator.Domain.Tags.Index
         public override void AddCommandExecute()
         {
             base.AddCommandExecute();
-            NavigateToPage("Add", "Tag");
+            NavigateToPage("Add", "Tag", null);
         }
         public override void EditCommandExecute()
         {
             base.EditCommandExecute();
-            EditTagView editTagView = new(SelectedEntity);
-            editTagView.Closed += RefreshDataOnDialog_Closed;
-            editTagView.ShowDialog();
+            NavigateToPage("Edit", "Tag", SelectedEntity);
         }
         public override void DeleteCommandExecute()
         {
@@ -79,6 +77,10 @@ namespace EventLocator.Domain.Tags.Index
             base.DeleteAfterOk(item);
             Repository.Instance.DeleteTag(item.Id);
             LoadTableData();
+        }
+        public override bool CanSearchCommandExecute()
+        {
+            return ValidationUtil.ValidateTextInputIsOnlyLetters([SearchedLabel, SearchedDescription]);
         }
         public override void SearchCommandExecute()
         {
@@ -102,6 +104,11 @@ namespace EventLocator.Domain.Tags.Index
         public override void ClearSearchCommandExecute()
         {
             base.ClearSearchCommandExecute();
+        }
+        public override void DetailsCommandExecute()
+        {
+            base.DetailsCommandExecute();
+            NavigateToPage("Details", "Tag", SelectedEntity);
         }
         #endregion commands
 

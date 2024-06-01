@@ -15,12 +15,10 @@ namespace EventLocator.Domain.Models
         private string _description;
         private string _iconUrl;
         private List<Event> _events;
-
-        private BitmapImage _iconBitmap;
         public EventType(Guid id, string label, string name, string description, string iconUrl)
         {
             Id = id;
-            Label = label;  
+            Label = label;
             Name = name;
             Description = description;
             IconUrl = iconUrl;

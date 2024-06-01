@@ -4,31 +4,135 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EventLocator.Domain.Tags.Add"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:val="clr-namespace:EventLocator.Validation"
         mc:Ignorable="d"
-        Title="AddTagView" Height="450" Width="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+        Title="AddTagView" Height="1080" Width="1920">
+    <StackPanel>
+        <Label 
+            Content="Add new tag" 
+            FontSize="50" 
+            FontWeight="Bold"
+            HorizontalAlignment="Center"/>
 
-        <Label Content="Add tag" Grid.Row="0" Grid.ColumnSpan="2"></Label>
+        <Grid Margin="0 50 0 0" >
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-        <Label Style="{StaticResource InputLabel}" Content="Label" Grid.Row="1" Grid.Column="0"></Label>
-        <TextBox x:Name="Label" Text="{Binding Path=Label, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" Grid.Row="1" Grid.Column="1"></TextBox>
-        <Label Content="Color" Grid.Row="2" Grid.Column="0"></Label>
-        <TextBox x:Name="Color" Text="{Binding Path=Color, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" Grid.Row="2" Grid.Column="1"></TextBox>
-        <Label Content="Description" Grid.Row="3" Grid.Column="0"></Label>
-        <TextBox x:Name="Description" Text="{Binding Path=Description, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" Grid.Row="3" Grid.Column="1"></TextBox>
+            <Label 
+                Style="{StaticResource InputLabel}" 
+                Content="Label:"
+                HorizontalAlignment="Right"
+                Margin="0 10 0 10"
+                Grid.Row="0" Grid.Column="0"/>
+            <TextBox 
+                x:Name="Label" 
+                HorizontalAlignment="Left"
+                Grid.Row="0" Grid.Column="1">
+                <TextBox.Text>
+                    <Binding Path="Label" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                        <Binding.ValidationRules>
+                            <val:LetterValidationRule ValidationStep="UpdatedValue"/>
+                            <val:RequiredTextInputValidationRule ValidationStep="UpdatedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
 
-        <Button Content="Add" Click="Add_Click" Grid.Row="4" Grid.Column="0" Style="{StaticResource AddButton}"></Button>
-        <Button Content="Cancel" Click="Cancel_Click" Grid.Row="4" Grid.Column="1"></Button>
-    </Grid>
+                            <AdornedElementPlaceholder Grid.Row="0" Grid.Column="0" x:Name="Label"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+
+            <Label 
+                Style="{StaticResource InputLabel}" 
+                Content="Color:"
+                HorizontalAlignment="Right"
+                Margin="0 10 0 10"
+                Grid.Row="1" Grid.Column="0"/>
+            <xctk:ColorPicker 
+                SelectedColor="{Binding Color, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" 
+                HorizontalAlignment="Left"
+                Grid.Row="1" Grid.Column="1"/>
+
+            <Label 
+                Style="{StaticResource InputLabel}" 
+                Content="Description:"
+                HorizontalAlignment="Right"
+                Margin="0 10 0 10"
+                Grid.Row="2" Grid.Column="0"/>
+            <TextBox 
+                x:Name="Description" 
+                HorizontalAlignment="Left"
+                Grid.Row="2" Grid.Column="1">
+                <TextBox.Text>
+                    <Binding Path="Description" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                        <Binding.ValidationRules>
+                            <val:LetterValidationRule ValidationStep="UpdatedValue"/>
+                            <val:RequiredTextInputValidationRule ValidationStep="UpdatedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <AdornedElementPlaceholder Grid.Row="0" Grid.Column="0" x:Name="SearchedLabel"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+
+            <Button 
+                Style="{StaticResource AddButton}" 
+                Command="{Binding OkCommand}"
+                HorizontalAlignment="Right"
+                Margin="0 20 20 0"
+                Grid.Row="3" Grid.Column="0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Image Source="../../../Resources/Images/add_icon.png" Width="35"></Image>
+                    <Label Style="{StaticResource ButtonLabel}" Content="Add"/>
+                </StackPanel>
+            </Button>
+
+            <Button 
+                Style="{StaticResource DeleteButton}" 
+                Command="{Binding CancelCommand}" 
+                HorizontalAlignment="Left"
+                Margin="20 20 0 0"
+                Grid.Row="3" Grid.Column="1">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Image Source="../../../Resources/Images/cancel_icon.png" Width="35"></Image>
+                    <Label Style="{StaticResource ButtonLabel}" Content="Cancel"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+    </StackPanel>
 </Page>

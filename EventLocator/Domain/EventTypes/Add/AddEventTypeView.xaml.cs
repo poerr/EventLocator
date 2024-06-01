@@ -19,22 +19,12 @@ namespace EventLocator.Domain.EventTypes.Add
     /// <summary>
     /// Interaction logic for AddEventTypeView.xaml
     /// </summary>
-    public partial class AddEventTypeView : Window
+    public partial class AddEventTypeView : Page
     {
         public AddEventTypeView()
         {
             DataContext = new AddEventTypeViewModel();
             InitializeComponent();
-        }
-
-        private void Add_Click(object sender, RoutedEventArgs e)
-        {
-            (DataContext as AddEventTypeViewModel).AddAfterOk();
-            Close();
-        }
-        private void Cancel_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
         }
         private void SelectImage_Click(object sender, RoutedEventArgs e)
         {

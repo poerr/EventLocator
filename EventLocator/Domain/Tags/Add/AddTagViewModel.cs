@@ -1,21 +1,23 @@
 ﻿using EventLocator.Common;
 using EventLocator.Data;
 using EventLocator.Domain.Models;
+using EventLocator.Validation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace EventLocator.Domain.Tags.Add
 {
-    public class AddTagViewModel : BaseDialogViewModel
+    public class AddTagViewModel : BaseFormPageViewModel
     {
         #region properties
         private string _label;
         private string _color;
         private string _description;
-
         public string Label
         {
             get { return _label; }
@@ -44,11 +46,21 @@ namespace EventLocator.Domain.Tags.Add
             }
         }
         #endregion properties
-
-        #region commands
-        public override void AddAfterOk()
+        #region constructors
+        public AddTagViewModel()
         {
-            base.AddAfterOk();
+            EntityName = "Tag";
+        }
+        #endregion constructors
+        #region commands
+        public override bool CanOkCommandExecute()
+        {
+            List<string> textInputsToCheck = [Label, Description];
+            return ValidationUtil.ValidateTextInputIsOnlyLetters(textInputsToCheck) && 
+                ValidationUtil.StringsHaveValue(textInputsToCheck);
+        }
+        public override void OkCommandExecute()
+        {
             Tag newTag = new()
             {
                 Id = Guid.NewGuid(),
@@ -57,6 +69,7 @@ namespace EventLocator.Domain.Tags.Add
                 Description = Description
             };
             Repository.Instance.AddTag(newTag);
+            base.OkCommandExecute();
         }
         #endregion commands
     }

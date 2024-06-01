@@ -25,15 +25,5 @@ namespace EventLocator.Domain.Tags.Add
             DataContext = new AddTagViewModel();    
             InitializeComponent();
         }
-
-        private void Add_Click(object sender, RoutedEventArgs e)
-        {
-            (DataContext as AddTagViewModel).AddAfterOk();
-            //Close();
-        }
-        private void Cancel_Click(object sender, RoutedEventArgs e)
-        {
-            //Close();
-        }
     }
 }

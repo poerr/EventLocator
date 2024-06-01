@@ -29,7 +29,7 @@ namespace EventLocator.Domain.Events.Edit
         }
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
-            (DataContext as EditEventViewModel).EditAfterOk();
+            //(DataContext as EditEventViewModel).EditAfterOk();
             Close();
         }
         private void Cancel_Click(object sender, RoutedEventArgs e)

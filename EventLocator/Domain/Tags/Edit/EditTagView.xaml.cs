@@ -18,22 +18,12 @@ namespace EventLocator.Domain.Tags.Edit
     /// <summary>
     /// Interaction logic for EditTagView.xaml
     /// </summary>
-    public partial class EditTagView : Window
+    public partial class EditTagView : Page
     {
         public EditTagView(Tag tag)
         {
             DataContext = new EditTagViewModel(tag);
             InitializeComponent();
-        }
-
-        private void Edit_Click(object sender, RoutedEventArgs e)
-        {
-            (DataContext as EditTagViewModel).EditAfterOk();
-            Close();
-        }
-        private void Cancel_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
         }
     }
 }

@@ -1,0 +1,162 @@
+﻿<Page x:Class="EventLocator.Domain.Tags.Index.IndexTagsView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:EventLocator.Domain.Tags.Index" 
+      xmlns:val="clr-namespace:EventLocator.Validation"
+      mc:Ignorable="d" 
+      Title="IndexTagsView">
+
+    <StackPanel Margin="100, 0, 100, 0" HorizontalAlignment="Center">
+        <Label 
+            Content="Tags" 
+            FontSize="80" 
+            FontWeight="Bold"
+            HorizontalAlignment="Center"
+        />
+        <Grid Margin="0 50 0 0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right">
+                <Label 
+                    Content="Label:" 
+                    HorizontalAlignment="Center" 
+                    Style="{StaticResource InputLabel}"/>
+                <TextBox 
+                    x:Name="SearchedLabel"
+                    HorizontalAlignment="Center" 
+                    Grid.Row="1" Grid.Column="0">
+                    <TextBox.Text>
+                        <Binding Path="SearchedLabel" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <val:LetterValidationRule ValidationStep="UpdatedValue"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <AdornedElementPlaceholder Grid.Row="0" Grid.Column="0" x:Name="SearchedLabel"/>
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center">
+                <Label 
+                    Content="Color:" 
+                    HorizontalAlignment="Center" 
+                    Style="{StaticResource InputLabel}"/>
+                <TextBox 
+                    x:Name="SearchedColor" 
+                    HorizontalAlignment="Center" 
+                    Text="{Binding Path=SearchedColor, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
+                <Label 
+                    Content="Description:" 
+                    HorizontalAlignment="Center" 
+                    Style="{StaticResource InputLabel}"/>
+                <TextBox 
+                    x:Name="SearchedDescription" 
+                    HorizontalAlignment="Center">
+                    <TextBox.Text>
+                        <Binding Path="SearchedDescription" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <val:LetterValidationRule ValidationStep="UpdatedValue"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <AdornedElementPlaceholder Grid.Row="0" Grid.Column="0" x:Name="SearchedColor"/>
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="3" Margin="0 40 0 10" HorizontalAlignment="Center">
+                <Button Style="{StaticResource SearchButton}" Command="{Binding SearchCommand}" Margin="50 0 0 0" Grid.Row="2" Grid.Column="0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Image Source="../../../Resources/Images/search_icon.png" Width="35"></Image>
+                            <Label Style="{StaticResource ButtonLabel}" Content="Search"/>
+                        </StackPanel>
+                </Button>
+                <Button Style="{StaticResource ClearSearchButton}" Command="{Binding ClearSearchCommand}" Margin="50 0 0 0" Grid.Row="2" Grid.Column="1">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Image Source="../../../Resources/Images/cancel_icon.png" Width="35"></Image>
+                        <Label Style="{StaticResource ButtonLabel}" Content="Clear search"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+        
+        <StackPanel Orientation="Horizontal" Margin="0 30 0 20">
+            <Label Style="{StaticResource InputLabel}" Content="Filter:"/>
+            <TextBox x:Name="Filter" Text="{Binding Path=Filter, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+        <DataGrid x:Name="TagsDataGrid" 
+              ItemsSource="{Binding Path=SearchedEntities}" 
+              SelectedItem="{Binding Path=SelectedEntity}"
+              AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="*"/>
+                <DataGridTextColumn Header="Label" Binding="{Binding Label}" Width="*"/>
+                <DataGridTextColumn Header="Color" Binding="{Binding Color}" Width="*"/>
+                <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Orientation="Horizontal" Margin="0 20 200 20">
+            <Button Style="{StaticResource AddButton}" Command="{Binding AddCommand}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Image Source="../../../Resources/Images/add_icon.png" Width="35"></Image>
+                    <Label Style="{StaticResource ButtonLabel}" Content="Add"/>
+                </StackPanel>
+            </Button>
+            <Button Style="{StaticResource EditButton}" Command="{Binding EditCommand}" Margin="50 0 0 0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Image Source="../../../Resources/Images/edit_icon.png" Width="35"></Image>
+                    <Label Style="{StaticResource ButtonLabel}" Content="Edit"/>
+                </StackPanel>
+            </Button>
+            <Button Style="{StaticResource DetailsButton}" Command="{Binding DetailsCommand}" Margin="50 0 0 0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Image Source="../../../Resources/Images/details_icon.png" Width="35"></Image>
+                    <Label Style="{StaticResource ButtonLabel}" Content="Details"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+    </StackPanel>
+</Page>

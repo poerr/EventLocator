@@ -1,6 +1,7 @@
 ﻿using EventLocator.Common;
 using EventLocator.Data;
 using EventLocator.Domain.Models;
+using EventLocator.Validation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,14 +10,13 @@ using System.Threading.Tasks;
 
 namespace EventLocator.Domain.EventTypes.Edit
 {
-    public class EditEventTypeViewModel : BaseDialogViewModel
+    public class EditEventTypeViewModel : BaseFormPageViewModel
     {
         #region properties
         private string _label;
         private string _name;
         private string _description;
         private string _iconUrl;
-
         public Guid Id { get; set; }
         public string Label
         {
@@ -55,7 +55,6 @@ namespace EventLocator.Domain.EventTypes.Edit
             }
         }
         #endregion properties
-
         #region constructors
         public EditEventTypeViewModel(EventType eventType)
         {
@@ -64,15 +63,22 @@ namespace EventLocator.Domain.EventTypes.Edit
             Name = eventType.Name;
             Description = eventType.Description;
             IconUrl = eventType.IconUrl;
+            EntityName = "EventType";
         }
         #endregion constructors
-
         #region commands
-
-        public override void EditAfterOk()
+        public override bool CanOkCommandExecute()
         {
-            base.EditAfterOk();
-            Repository.Instance.EditEventType(new EventType(Id, Label, Name, Description, IconUrl));
+            List<string> textInputsToCheck = [Label, Name, Description];
+            return ValidationUtil.ValidateTextInputIsOnlyLetters(textInputsToCheck) &&
+                ValidationUtil.StringsHaveValue(textInputsToCheck) &&
+                !string.IsNullOrEmpty(IconUrl);
+        }
+        public override void OkCommandExecute()
+        {
+            EventType editedEventType = new(Id, Label, Name, Description, IconUrl);
+            Repository.Instance.EditEventType(editedEventType);
+            base.OkCommandExecute();
         }
         #endregion commands
     }

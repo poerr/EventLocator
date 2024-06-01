@@ -8,10 +8,6 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Domain\Shared\" />
-  </ItemGroup>
-
 	<ItemGroup>
 		<Content Include="Resources\Images\*.*">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -19,6 +15,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.5" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.5">
 	    <PrivateAssets>all</PrivateAssets>

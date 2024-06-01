@@ -22,7 +22,7 @@ namespace EventLocator.Domain.Tags.Index
     {
         public IndexTagsView()
         {
-            DataContext = new IndexTagsViewModel();
+            DataContext = new IndexTagViewModel();
             InitializeComponent();
         }
     }

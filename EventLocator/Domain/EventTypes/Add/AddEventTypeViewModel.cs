@@ -1,6 +1,7 @@
 ﻿using EventLocator.Common;
 using EventLocator.Data;
 using EventLocator.Domain.Models;
+using EventLocator.Validation;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -11,14 +12,13 @@ using System.Windows.Media;
 
 namespace EventLocator.Domain.EventTypes.Add
 {
-    public class AddEventTypeViewModel : BaseDialogViewModel
+    public class AddEventTypeViewModel : BaseFormPageViewModel
     {
         #region properties
         public string _label;
         public string _name;
         public string _description;
         public string _iconUrl;
-
         public string Label
         {
             get { return _label; }
@@ -56,12 +56,25 @@ namespace EventLocator.Domain.EventTypes.Add
             }
         }
         #endregion properties
-
-        #region commands
-        public override void AddAfterOk()
+        #region constructors
+        public AddEventTypeViewModel()
         {
-            base.AddAfterOk();
-            Repository.Instance.AddEventType(new EventType(Guid.NewGuid(), Label, Name, Description, IconUrl));
+            EntityName = "EventType";
+        }
+        #endregion constructors
+        #region commands
+        public override bool CanOkCommandExecute()
+        {
+            List<string> textInputsToCheck = [Label, Name, Description];
+            return ValidationUtil.ValidateTextInputIsOnlyLetters(textInputsToCheck) &&
+                ValidationUtil.StringsHaveValue(textInputsToCheck) &&
+                !string.IsNullOrEmpty(IconUrl);
+        }
+        public override void OkCommandExecute()
+        {
+            EventType newEventType = new(Guid.NewGuid(), Label, Name, Description, IconUrl);
+            Repository.Instance.AddEventType(newEventType);
+            base.OkCommandExecute();
         }
         #endregion commands
     }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace EventLocator.Domain.Events.Add
 {
-    public class AddEventViewModel : BaseDialogViewModel
+    public class AddEventViewModel : BaseFormPageViewModel
     {
         #region properties
         private string _label;
@@ -274,29 +274,29 @@ namespace EventLocator.Domain.Events.Add
         {
             return SelectedPreviousDate != default;
         }
-        public override void AddAfterOk()
-        {
-            base.AddAfterOk();
-            Event newEvent = new()
-            {
-                Id = Guid.NewGuid(),
-                Label = Label,
-                Name = Name,
-                Description = Description,
-                Type = EventType.Value,
-                Attendance = Attendance.Value,
-                IconUrl = IconUrl,
-                IsCharity = IsCharity,
-                AverageHostingExpenses = decimal.Parse(AverageHostingExpenses),
-                Country = Country,
-                City = City,
-                PreviousEventDates = new List<DateTime>(PreviousEventDates),
-                EventDate = EventDate,
-                Tags = new List<Tag>(Tags)
-            };
+        //public override void AddAfterOk()
+        //{
+        //    base.AddAfterOk();
+        //    Event newEvent = new()
+        //    {
+        //        Id = Guid.NewGuid(),
+        //        Label = Label,
+        //        Name = Name,
+        //        Description = Description,
+        //        Type = EventType.Value,
+        //        Attendance = Attendance.Value,
+        //        IconUrl = IconUrl,
+        //        IsCharity = IsCharity,
+        //        AverageHostingExpenses = decimal.Parse(AverageHostingExpenses),
+        //        Country = Country,
+        //        City = City,
+        //        PreviousEventDates = new List<DateTime>(PreviousEventDates),
+        //        EventDate = EventDate,
+        //        Tags = new List<Tag>(Tags)
+        //    };
 
-            Repository.Instance.AddEvent(newEvent);
-        }
+        //    Repository.Instance.AddEvent(newEvent);
+        //}
         #endregion commands
         #region functions
         private bool tagAlreadyAdded(Tag checkedTag)

@@ -17,13 +17,13 @@ using System.Windows.Shapes;
 namespace EventLocator.Domain.EventTypes.Index
 {
     /// <summary>
-    /// Interaction logic for IndexEventTypesView.xaml
+    /// Interaction logic for IndexEventTypeView.xaml
     /// </summary>
-    public partial class IndexEventTypesView : Page
+    public partial class IndexEventTypeView : Page
     {
-        public IndexEventTypesView()
+        public IndexEventTypeView()
         {
-            DataContext = new IndexEventTypesViewModel();
+            DataContext = new IndexEventTypeViewModel();
             InitializeComponent();
         }
     }

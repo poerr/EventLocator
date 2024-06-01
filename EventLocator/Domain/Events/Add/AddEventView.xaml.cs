@@ -29,7 +29,7 @@ namespace EventLocator.Domain.Events.Add
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            (DataContext as AddEventViewModel).AddAfterOk();
+            //(DataContext as AddEventViewModel).AddAfterOk();
             Close();
         }
         private void Cancel_Click(object sender, RoutedEventArgs e)

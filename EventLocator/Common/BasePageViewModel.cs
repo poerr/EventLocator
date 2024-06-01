@@ -1,6 +1,10 @@
 ﻿using Accessibility;
 using EventLocator.Data;
+using EventLocator.Domain.EventTypes.Details;
+using EventLocator.Domain.EventTypes.Edit;
 using EventLocator.Domain.Models;
+using EventLocator.Domain.Tags.Details;
+using EventLocator.Domain.Tags.Edit;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace EventLocator.Common
 {
@@ -18,7 +23,6 @@ namespace EventLocator.Common
         private ObservableCollection<Entity> _entities = new();
         private ObservableCollection<Entity> _searchedEntities = new();
         private string _filter;
-
         public Entity? SelectedEntity
         {
             get { return _selectedEntity; }
@@ -60,14 +64,14 @@ namespace EventLocator.Common
             }
         }
         #endregion properties
-
         #region commands
         private RelayCommand _addCommand;
         private RelayCommand _editCommand;
         private RelayCommand _deleteCommand;
         private RelayCommand _searchCommand;
         private RelayCommand _clearSearchCommand;
-
+        private RelayCommand _detailsCommand;
+        private RelayCommand _listCommand;
         public RelayCommand AddCommand
         {
             get
@@ -103,6 +107,20 @@ namespace EventLocator.Common
                 return _clearSearchCommand ??= new RelayCommand(param => ClearSearchCommandExecute(), param => CanClearSearchCommandExecute());
             }
         }
+        public RelayCommand DetailsCommand
+        {
+            get
+            {
+                return _detailsCommand ??= new RelayCommand(param => DetailsCommandExecute(), param => CanDetailsCommandExecute());
+            }
+        }
+        public RelayCommand ListCommand
+        {
+            get
+            {
+                return _listCommand ??= new RelayCommand(param =>  ListCommandExecute(), param => CanListCommandExecute());
+            }
+        }
         public bool CanAddCommandExecute()
         {
             return true;
@@ -119,17 +137,11 @@ namespace EventLocator.Common
         }
         public virtual void DeleteCommandExecute()
         {
-            MessageBoxResult result = MessageBox.Show("Do you want to delete this item?", "Delete confirmation", MessageBoxButton.YesNo);
-
-            if (result == MessageBoxResult.Yes)
-            {
-                DeleteAfterOk(SelectedEntity);
-            }
-
+            DeleteAfterOk(SelectedEntity);
             SelectedEntity = default;
         }
         public virtual void DeleteAfterOk(Entity item) { }
-        public bool CanSearchCommandExecute()
+        public virtual bool CanSearchCommandExecute()
         {
             return true;
         }
@@ -143,8 +155,17 @@ namespace EventLocator.Common
             SearchedEntities = Entities;
             ClearSearchFields(); 
         }
+        public bool CanDetailsCommandExecute()
+        {
+            return SelectedEntity != null;
+        }
+        public virtual void DetailsCommandExecute() { }
+        public bool CanListCommandExecute()
+        {
+            return true;
+        }
+        public virtual void ListCommandExecute() { }
         #endregion commands
-
         #region functions
         public virtual void LoadTableData() { }
         public virtual void FilterEntities() { }
@@ -153,14 +174,59 @@ namespace EventLocator.Common
         {
             LoadTableData();
         }
-        protected void NavigateToPage(string pageName, string entityName)
+        protected void NavigateToPage(string pageName, string entityName, Entity selected = default)
         {
             var mainWindow = (MainWindow)Application.Current.MainWindow;
             var frame = mainWindow.MainFrame;
 
-            string uriPath = "Domain/" + entityName + "s" + "/" + pageName + "/" + pageName + entityName + "View.xaml";
-            //string uriPath = "../" + pageName + "/" + pageName + entityName + "View.xaml";
-            frame.Navigate(new Uri(uriPath, UriKind.RelativeOrAbsolute));
+            if (selected != null)
+            {
+                NavigateToPageWithEntity(selected, frame, pageName);
+            }
+            else
+            {
+                string uriPath = "Domain/" + entityName + "s" + "/" + pageName + "/" + pageName + entityName + "View.xaml";
+                frame.Navigate(new Uri(uriPath, UriKind.RelativeOrAbsolute));
+            }
+        }
+
+        protected void NavigateToPageWithEntity(Entity selected, Frame frame, string action)
+        {
+            Type entityType = selected.GetType();
+
+            if(entityType == typeof(Event))
+            {
+                if(action == "Edit")
+                {
+
+                }
+                else if(action == "Details")
+                {
+                    
+                }
+            }
+            else if(entityType == typeof(EventType))
+            {
+                if (action == "Edit")
+                {
+                    frame.Navigate(new EditEventTypeView(selected as EventType));
+                }
+                else if (action == "Details")
+                {
+                    frame.Navigate(new DetailsEventTypeView(selected as EventType));
+                }
+            }
+            else
+            {
+                if (action == "Edit")
+                {
+                    frame.Navigate(new EditTagView(selected as Tag));
+                }
+                else if (action == "Details")
+                {
+                    frame.Navigate(new DetailsTagView(selected as Tag));
+                }
+            }
         }
         #endregion functions
     }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace EventLocator.Domain.Events.Edit
 {
-    public class EditEventViewModel : BaseDialogViewModel
+    public class EditEventViewModel : BaseFormPageViewModel
     {
         #region properties
         private Guid _id;
@@ -276,29 +276,29 @@ namespace EventLocator.Domain.Events.Edit
         {
             return SelectedPreviousDate != default;
         }
-        public override void EditAfterOk()
-        {
-            base.EditAfterOk();
-            Event newEvent = new()
-            {
-                Id = Id,
-                Label = Label,
-                Name = Name,
-                Description = Description,
-                Type = EventType.Value,
-                Attendance = Attendance.Value,
-                IconUrl = IconUrl,
-                IsCharity = IsCharity,
-                AverageHostingExpenses = decimal.Parse(AverageHostingExpenses),
-                Country = Country,
-                City = City,
-                PreviousEventDates = new List<DateTime>(PreviousEventDates),
-                EventDate = EventDate,
-                Tags = new List<Tag>(Tags)
-            };
+        //public override void EditAfterOk()
+        //{
+        //    base.EditAfterOk();
+        //    Event newEvent = new()
+        //    {
+        //        Id = Id,
+        //        Label = Label,
+        //        Name = Name,
+        //        Description = Description,
+        //        Type = EventType.Value,
+        //        Attendance = Attendance.Value,
+        //        IconUrl = IconUrl,
+        //        IsCharity = IsCharity,
+        //        AverageHostingExpenses = decimal.Parse(AverageHostingExpenses),
+        //        Country = Country,
+        //        City = City,
+        //        PreviousEventDates = new List<DateTime>(PreviousEventDates),
+        //        EventDate = EventDate,
+        //        Tags = new List<Tag>(Tags)
+        //    };
 
-            Repository.Instance.EditEvent(newEvent);
-        }
+        //    Repository.Instance.EditEvent(newEvent);
+        //}
         #endregion commands
         #region constructors
         public EditEventViewModel(Event selectedEvent)

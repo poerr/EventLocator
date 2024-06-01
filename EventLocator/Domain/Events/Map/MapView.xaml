@@ -91,7 +91,7 @@
             DragOver="Map_DragOver" 
             Drop="Map_Drop">
             <Canvas.Background>
-                <ImageBrush ImageSource="../../../Resources/Images/map.jpg"/>
+                <ImageBrush ImageSource="../../../Resources/Images/world_map.jpg"/>
             </Canvas.Background>
         </Canvas>
     </Grid>

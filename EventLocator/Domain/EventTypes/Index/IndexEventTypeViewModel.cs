@@ -5,6 +5,7 @@ using EventLocator.Domain.EventTypes.Edit;
 using EventLocator.Domain.Models;
 using EventLocator.Domain.Tags.Add;
 using EventLocator.Domain.Tags.Edit;
+using EventLocator.Validation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,12 +17,12 @@ using System.Windows.Media.Imaging;
 
 namespace EventLocator.Domain.EventTypes.Index
 {
-    public class IndexEventTypesViewModel : BasePageViewModel<EventType>
+    public class IndexEventTypeViewModel : BasePageViewModel<EventType>
     {
         #region properties
-        private string _searchedLabel;
-        private string _searchedName;
-        private string _searchedDescription;
+        private string _searchedLabel = "";
+        private string _searchedName = "";
+        private string _searchedDescription = "";
 
         public string SearchedLabel
         {
@@ -51,28 +52,22 @@ namespace EventLocator.Domain.EventTypes.Index
             }
         }
         #endregion properties
-
         #region constructors
-        public IndexEventTypesViewModel()
+        public IndexEventTypeViewModel()
         {
             LoadTableData();
         }
         #endregion constructors
-
         #region commands
         public override void AddCommandExecute()
         {
             base.AddCommandExecute();
-            AddEventTypeView addEventTypeView = new();
-            addEventTypeView.Closed += RefreshDataOnDialog_Closed;
-            addEventTypeView.ShowDialog();
+            NavigateToPage("Add", "EventType", null);
         }
         public override void EditCommandExecute()
         {
             base.EditCommandExecute();
-            EditEventTypeView editTagView = new(SelectedEntity);
-            editTagView.Closed += RefreshDataOnDialog_Closed;
-            editTagView.ShowDialog();
+            NavigateToPage("Edit", "EventType", SelectedEntity);
         }
         public override void DeleteCommandExecute()
         {
@@ -83,6 +78,10 @@ namespace EventLocator.Domain.EventTypes.Index
             base.DeleteAfterOk(item);
             Repository.Instance.DeleteEventType(item.Id);
             LoadTableData();
+        }
+        public override bool CanSearchCommandExecute()
+        {
+            return ValidationUtil.ValidateTextInputIsOnlyLetters([SearchedLabel, SearchedDescription, SearchedName]);
         }
         public override void SearchCommandExecute()
         {
@@ -103,10 +102,14 @@ namespace EventLocator.Domain.EventTypes.Index
                 SearchedEntities = new ObservableCollection<EventType>(SearchedEntities.Where(entity => entity.Description.ToLower().Contains(SearchedDescription.ToLower())));
             }
         }
-
         public override void ClearSearchCommandExecute()
         {
             base.ClearSearchCommandExecute();
+        }
+        public override void DetailsCommandExecute()
+        {
+            base.DetailsCommandExecute();
+            NavigateToPage("Details", "EventType", SelectedEntity);
         }
         #endregion commands
 
