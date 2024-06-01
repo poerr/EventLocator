@@ -17,13 +17,13 @@ using static System.Net.Mime.MediaTypeNames;
 namespace EventLocator.Domain.Events.Index
 {
     /// <summary>
-    /// Interaction logic for IndexEventsView.xaml
+    /// Interaction logic for IndexEventView.xaml
     /// </summary>
-    public partial class IndexEventsView : Page
+    public partial class IndexEventView : Page
     {
-        public IndexEventsView()
+        public IndexEventView()
         {
-            DataContext = new IndexEventsViewModel();
+            DataContext = new IndexEventViewModel();
             InitializeComponent();
         }
     }

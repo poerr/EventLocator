@@ -3,6 +3,7 @@ using EventLocator.Data;
 using EventLocator.Domain.Events.Add;
 using EventLocator.Domain.Events.Edit;
 using EventLocator.Domain.Models;
+using EventLocator.Validation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,19 +16,19 @@ using System.Windows.Controls;
 
 namespace EventLocator.Domain.Events.Index
 {
-    public class IndexEventsViewModel : BasePageViewModel<Event>
+    public class IndexEventViewModel : BasePageViewModel<Event>
     {
         #region properties
-        private string _searchedLabel;
-        private string _searchedName;
-        private string _searchedDescription;
+        private string _searchedLabel = "";
+        private string _searchedName = "";
+        private string _searchedDescription = "";
         private ComboBoxData<EventType> _searchedEventType;
         private ComboBoxData<Attendance> _searchedAttendance;
         private bool _searchedIsCharity;
-        private string _searchedExpensesFrom;
-        private string _searchedExpensesTo;
-        private string _searchedCountry;
-        private string _searchedCity;
+        private string _searchedExpensesFrom = "";
+        private string _searchedExpensesTo = "";
+        private string _searchedCountry = "";
+        private string _searchedCity = "";
         private DateTime _searchedEventDateFrom = DateTime.Today;
         private DateTime _searchedEventDateTo = DateTime.Today;
 
@@ -162,7 +163,7 @@ namespace EventLocator.Domain.Events.Index
         }
         #endregion properties
         #region constructors
-        public IndexEventsViewModel() 
+        public IndexEventViewModel() 
         {            
             EventTypeComboBoxOptions = Repository.Instance.eventTypeDropdownOptions();
             AttendanceComboBoxOptions = Repository.Instance.attendanceDropdownOptions();
@@ -175,17 +176,12 @@ namespace EventLocator.Domain.Events.Index
         public override void AddCommandExecute()
         {
             base.AddCommandExecute();
-            AddEventView addEventView = new();
-            addEventView.Closed += RefreshDataOnDialog_Closed;
-            addEventView.ShowDialog();
+            NavigateToPage("Add", "Event", null);
         }
-
         public override void EditCommandExecute()
         {
             base.EditCommandExecute();
-            EditEventView editEventView = new(SelectedEntity);
-            editEventView.Closed += RefreshDataOnDialog_Closed;
-            editEventView.ShowDialog();
+            NavigateToPage("Edit", "Event", SelectedEntity);
         }
         public override void DeleteCommandExecute()
         {
@@ -196,6 +192,11 @@ namespace EventLocator.Domain.Events.Index
             base.DeleteAfterOk(item);
             Repository.Instance.DeleteEvent(item.Id);
             LoadTableData();
+        }
+        public override bool CanSearchCommandExecute()
+        {
+            return ValidationUtil.ValidateTextInputIsOnlyLetters([SearchedLabel, SearchedDescription, SearchedName, SearchedCountry, SearchedCity]) &&
+                ValidationUtil.DecimalValueValidation([SearchedExpensesFrom, SearchedExpensesTo]);
         }
         public override void SearchCommandExecute()
         {
@@ -259,6 +260,11 @@ namespace EventLocator.Domain.Events.Index
         {
             base.ClearSearchCommandExecute();
         }
+        public override void DetailsCommandExecute()
+        {
+            base.DetailsCommandExecute();
+            NavigateToPage("Details", "Event", SelectedEntity);
+        }
         #endregion commands
         #region functions
         public override void LoadTableData()
@@ -289,6 +295,20 @@ namespace EventLocator.Domain.Events.Index
             {
                 SearchedEntities = Entities;
             }
+        }
+        public override void ClearSearchFields()
+        {
+            SearchedLabel = string.Empty;
+            SearchedName = string.Empty;
+            SearchedDescription = string.Empty;
+            SearchedEventType = default;
+            SearchedAttendance = default;
+            SearchedExpensesFrom = string.Empty;
+            SearchedExpensesTo = string.Empty;
+            SearchedCity = string.Empty;
+            SearchedCountry = string.Empty;
+            SearchedEventDateFrom = DateTime.Now;
+            SearchedEventDateTo = DateTime.Now;
         }
         #endregion functions
     }

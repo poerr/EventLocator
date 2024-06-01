@@ -327,20 +327,19 @@ BorderBrush="{TemplateBinding BorderBrush}">
 
     <Style TargetType="DatePicker">
         <Setter Property="Width" Value="250"/>
-        <Setter Property="Margin" Value="5" /> 
-        <Setter Property="Height" Value="35"/>
         <Setter Property="Background" Value="White"/>
         <Setter Property="Padding" Value="5, 10, 15, 20"/>
         <Setter Property="BorderBrush" Value="Gray"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
-    
+
     <Style x:Key="InputLabel" TargetType="Label">
         <Setter Property="FontWeight" Value="ExtraBold" />
         <Setter Property="FontSize" Value="20" />
     </Style>
-
     <Style TargetType="Menu">
         <Setter Property="Height" Value="50" />
     </Style>

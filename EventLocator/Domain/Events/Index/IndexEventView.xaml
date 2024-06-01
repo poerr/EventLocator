@@ -1,0 +1,428 @@
+﻿<Page x:Class="EventLocator.Domain.Events.Index.IndexEventView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:EventLocator.Domain.Events.Index"
+      xmlns:val="clr-namespace:EventLocator.Validation"
+      mc:Ignorable="d" 
+      d:DesignHeight="1080" d:DesignWidth="1900"
+      Title="IndexEventsView">
+
+    <StackPanel Margin="100, 0, 100, 0" HorizontalAlignment="Center">
+        <Label 
+        Content="Events" 
+        FontSize="80" 
+        FontWeight="Bold"
+        HorizontalAlignment="Center"
+    />
+        <Grid Margin="0 50 0 0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Label 
+                Content="Label:" 
+                Style="{StaticResource InputLabel}"
+                HorizontalAlignment="Right"
+                Margin="0 30 0 0"
+                Grid.Row="0" Grid.Column="0"/>
+            <TextBox 
+                x:Name="SearchedLabel"
+                HorizontalAlignment="Left"
+                Margin="0 30 0 0"
+                Grid.Row="0" Grid.Column="1">
+                <TextBox.Text>
+                    <Binding Path="SearchedLabel" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <val:LetterValidationRule ValidationStep="UpdatedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <AdornedElementPlaceholder Grid.Row="0" Grid.Column="0" x:Name="SearchedLabel"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+
+            <Label 
+                Content="Name:" 
+                HorizontalAlignment="Right"
+                Margin="0 30 0 0"
+                Style="{StaticResource InputLabel}"
+                Grid.Row="0" Grid.Column="2"/>
+            <TextBox 
+                x:Name="SearchedName" 
+                HorizontalAlignment="Left" 
+                Margin="0 30 0 0"
+                Grid.Row="0" Grid.Column="3">
+                <TextBox.Text>
+                    <Binding Path="SearchedName" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <val:LetterValidationRule ValidationStep="UpdatedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <AdornedElementPlaceholder Grid.Row="0" Grid.Column="0" x:Name="SearchedName"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+
+            <Label 
+                Content="Description:" 
+                HorizontalAlignment="Right" 
+                Margin="0 30 0 0"
+                Style="{StaticResource InputLabel}"
+                Grid.Row="0" Grid.Column="4"/>
+            <TextBox 
+                x:Name="SearchedDescription" 
+                HorizontalAlignment="Left"
+                Margin="0 30 0 0"
+                Grid.Row="0" Grid.Column="5">
+                <TextBox.Text>
+                    <Binding Path="SearchedDescription" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <val:LetterValidationRule ValidationStep="UpdatedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <AdornedElementPlaceholder Grid.Row="0" Grid.Column="0" x:Name="SearchedColor"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+
+            <Label 
+                Content="Event type:" 
+                HorizontalAlignment="Right" 
+                Style="{StaticResource InputLabel}"
+                Margin="0 30 0 0"
+                Grid.Row="1" Grid.Column="0"/>
+            <ComboBox 
+                ItemsSource="{Binding EventTypeComboBoxOptions}"
+                SelectedItem="{Binding Path=SearchedEventType, UpdateSourceTrigger=PropertyChanged}"
+                FontSize="20"
+                FontWeight="Bold"
+                VerticalContentAlignment="Center"
+                HorizontalContentAlignment="Center"
+                DisplayMemberPath="Name"
+                HorizontalAlignment="Left"
+                Width="250"
+                Margin="0 30 0 0"
+                Grid.Row="1" Grid.Column="1"/>
+
+            <Label 
+                Content="Attendance:" 
+                HorizontalAlignment="Right" 
+                Margin="0 30 0 0"
+                Style="{StaticResource InputLabel}"
+                Grid.Row="1" Grid.Column="2"/>
+            <ComboBox 
+                ItemsSource="{Binding AttendanceComboBoxOptions}"
+                SelectedItem="{Binding Path=SearchedAttendance, UpdateSourceTrigger=PropertyChanged}"
+                FontSize="20"
+                FontWeight="Bold"
+                VerticalContentAlignment="Center"
+                HorizontalContentAlignment="Center"
+                DisplayMemberPath="Name"
+                HorizontalAlignment="Left"
+                Width="250"
+                Margin="0 30 0 0"
+                Grid.Row="1" Grid.Column="3"/>
+
+            <Label 
+                Content="Is charity:" 
+                HorizontalAlignment="Right" 
+                Margin="0 30 0 0"
+                Style="{StaticResource InputLabel}"
+                Grid.Row="1" Grid.Column="4"/>
+            <CheckBox 
+                IsChecked="{Binding SearchedIsCharity}"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Width="50"
+                Margin="0 30 0 0"
+                Grid.Row="1" Grid.Column="5">
+                <CheckBox.LayoutTransform>
+                    <ScaleTransform ScaleX="2.2" ScaleY="2.2"/>
+                </CheckBox.LayoutTransform>
+            </CheckBox>
+
+            <Label 
+                Content="Country:" 
+                HorizontalAlignment="Right" 
+                Margin="0 30 0 0"
+                Style="{StaticResource InputLabel}"
+                Grid.Row="2" Grid.Column="0"/>
+            <TextBox 
+                x:Name="SearchedCountry"
+                HorizontalAlignment="Left"
+                Margin="0 30 0 0"
+                Grid.Row="2" Grid.Column="1">
+                <TextBox.Text>
+                    <Binding Path="SearchedCountry" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <val:LetterValidationRule ValidationStep="UpdatedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <AdornedElementPlaceholder Grid.Row="0" Grid.Column="0" x:Name="SearchedCountry"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+
+            <Label 
+                Content="City:" 
+                HorizontalAlignment="Right" 
+                Margin="0 30 0 0"
+                Style="{StaticResource InputLabel}"
+                Grid.Row="2" Grid.Column="2"/>
+            <TextBox 
+                x:Name="SearchedCity"
+                Margin="0 30 0 0"
+                HorizontalAlignment="Left"
+                Grid.Row="2" Grid.Column="3">
+                <TextBox.Text>
+                    <Binding Path="SearchedCity" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <val:LetterValidationRule ValidationStep="UpdatedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <AdornedElementPlaceholder Grid.Row="0" Grid.Column="0" x:Name="SearchedCity"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+
+            <Label 
+                Content="Expenses from:" 
+                HorizontalAlignment="Right" 
+                Margin="0 30 0 0"
+                Style="{StaticResource InputLabel}"
+                Grid.Row="3" Grid.Column="0"/>
+            <TextBox 
+                x:Name="SearchedExpensesFrom"
+                HorizontalAlignment="Left"
+                Margin="0 30 0 0"
+                Grid.Row="3" Grid.Column="1">
+                <TextBox.Text>
+                    <Binding Path="SearchedExpensesFrom" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <val:StringToDecimalValidationRule ValidationStep="RawProposedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <AdornedElementPlaceholder Grid.Row="0" Grid.Column="0" x:Name="SearchedExpensesFrom"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+
+            <Label 
+                Content="Expenses to:" 
+                HorizontalAlignment="Right" 
+                Style="{StaticResource InputLabel}"
+                Margin="0 30 0 0"
+                Grid.Row="3" Grid.Column="2"/>
+            <TextBox 
+                x:Name="SearchedExpensesTo"
+                HorizontalAlignment="Left"
+                Margin="0 30 0 0"
+                Grid.Row="3" Grid.Column="3">
+                <TextBox.Text>
+                    <Binding Path="SearchedExpensesTo" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <val:StringToDecimalValidationRule ValidationStep="RawProposedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <AdornedElementPlaceholder Grid.Row="0" Grid.Column="0" x:Name="SearchedExpensesTo"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+
+            <Label 
+                Content="Date from:" 
+                HorizontalAlignment="Right" 
+                Margin="0 30 0 0"
+                Style="{StaticResource InputLabel}"
+                Grid.Row="4" Grid.Column="0"/>
+            <DatePicker 
+                SelectedDate="{Binding Path=SearchedEventDateFrom, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                HorizontalAlignment="Left"
+                Margin="0 30 0 0"
+                Grid.Row="4" Grid.Column="1"/>
+
+            <Label 
+                Content="Date to:" 
+                HorizontalAlignment="Right" 
+                Margin="0 30 0 0"
+                Style="{StaticResource InputLabel}"
+                Grid.Row="4" Grid.Column="2"/>
+            <DatePicker 
+                SelectedDate="{Binding Path=SearchedEventDateTo, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                HorizontalAlignment="Left"
+                Margin="0 30 0 0"
+                Grid.Row="4" Grid.Column="3"/>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.ColumnSpan="6" Margin="0 40 0 10" HorizontalAlignment="Center">
+                <Button Style="{StaticResource SearchButton}" Command="{Binding SearchCommand}" Margin="50 0 0 0" Grid.Row="2" Grid.Column="0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Image Source="../../../Resources/Images/search_icon.png" Width="35"></Image>
+                        <Label Style="{StaticResource ButtonLabel}" Content="Search"/>
+                    </StackPanel>
+                </Button>
+                <Button Style="{StaticResource ClearSearchButton}" Command="{Binding ClearSearchCommand}" Margin="50 0 0 0" Grid.Row="2" Grid.Column="1">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Image Source="../../../Resources/Images/cancel_icon.png" Width="35"></Image>
+                        <Label Style="{StaticResource ButtonLabel}" Content="Clear search"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <StackPanel Orientation="Horizontal" Margin="0 30 0 20">
+            <Label Style="{StaticResource InputLabel}" Content="Filter:"/>
+            <TextBox x:Name="Filter" Text="{Binding Path=Filter, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+        <DataGrid x:Name="TagsDataGrid" 
+            ItemsSource="{Binding Path=SearchedEntities}" 
+            SelectedItem="{Binding Path=SelectedEntity}"
+            Width="Auto"
+            AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Label" Binding="{Binding Label}" Width="*"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
+                <DataGridTextColumn Header="Type" Binding="{Binding Type.Label}" Width="*"/>
+                <DataGridTextColumn Header="Attendance" Binding="{Binding Attendance}" Width="*"/>
+                <DataGridTextColumn Header="Charity" Binding="{Binding IsCharity}" Width="*"/>
+                <DataGridTextColumn Header="Expenses" Binding="{Binding AverageHostingExpenses}" Width="*"/>
+                <DataGridTextColumn Header="Country" Binding="{Binding Country}" Width="*"/>
+                <DataGridTextColumn Header="City" Binding="{Binding City}" Width="*"/>
+                <DataGridTextColumn Header="Date" Binding="{Binding EventDate}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Orientation="Horizontal" Margin="0 20 200 20">
+            <Button Style="{StaticResource AddButton}" Command="{Binding AddCommand}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Image Source="../../../Resources/Images/add_icon.png" Width="35"></Image>
+                    <Label Style="{StaticResource ButtonLabel}" Content="Add"/>
+                </StackPanel>
+            </Button>
+            <Button Style="{StaticResource EditButton}" Command="{Binding EditCommand}" Margin="50 0 0 0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Image Source="../../../Resources/Images/edit_icon.png" Width="35"></Image>
+                    <Label Style="{StaticResource ButtonLabel}" Content="Edit"/>
+                </StackPanel>
+            </Button>
+            <Button Style="{StaticResource DetailsButton}" Command="{Binding DetailsCommand}" Margin="50 0 0 0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Image Source="../../../Resources/Images/details_icon.png" Width="35"></Image>
+                    <Label Style="{StaticResource ButtonLabel}" Content="Details"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+    </StackPanel>
+</Page>

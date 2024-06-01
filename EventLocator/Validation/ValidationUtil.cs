@@ -67,6 +67,37 @@ namespace EventLocator.Validation
                 return false;
             }
         }
+        public static bool DecimalValueValidation(List<string> textInputs)
+        {
+            foreach (string textInput in textInputs)
+            {
+                if(!string.IsNullOrEmpty(textInput))
+                {
+                    string[] parts = textInput.Split(".");
+                    if(parts.Length != 2)
+                    {
+                        return false;
+                    }
+                    // proveri da li su sve brojevi
+                    foreach (string part in parts)
+                    {
+                        foreach (char character in part)
+                        {
+                            if (!char.IsNumber(character))
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                    // da li je dobar format
+                    if (parts[1].Length != 2)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
         public static object GetBoundValue(object value)
         {
             if (value is BindingExpression)

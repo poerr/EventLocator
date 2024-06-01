@@ -21,7 +21,7 @@ namespace EventLocator.Validation
                 {
                     return new ValidationResult(true, null);
                 }
-                return new ValidationResult(false, "Enter a value numeric value with 2 decimals.");
+                return new ValidationResult(false, "Enter a numeric value with 2 decimals.");
             }
             catch
             {
