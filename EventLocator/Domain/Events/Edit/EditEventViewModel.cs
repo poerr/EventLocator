@@ -1,9 +1,11 @@
 ﻿using EventLocator.Common;
 using EventLocator.Data;
 using EventLocator.Domain.Models;
+using EventLocator.Validation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -274,31 +276,41 @@ namespace EventLocator.Domain.Events.Edit
         }
         public bool CanAddPreviousDateCommandExecute()
         {
-            return SelectedPreviousDate != default;
+            return SelectedPreviousDate != default && ValidationUtil.AreDatesInPast([SelectedPreviousDate]);
         }
-        //public override void EditAfterOk()
-        //{
-        //    base.EditAfterOk();
-        //    Event newEvent = new()
-        //    {
-        //        Id = Id,
-        //        Label = Label,
-        //        Name = Name,
-        //        Description = Description,
-        //        Type = EventType.Value,
-        //        Attendance = Attendance.Value,
-        //        IconUrl = IconUrl,
-        //        IsCharity = IsCharity,
-        //        AverageHostingExpenses = decimal.Parse(AverageHostingExpenses),
-        //        Country = Country,
-        //        City = City,
-        //        PreviousEventDates = new List<DateTime>(PreviousEventDates),
-        //        EventDate = EventDate,
-        //        Tags = new List<Tag>(Tags)
-        //    };
+        public override bool CanOkCommandExecute()
+        {
+            return ValidationUtil.ValidateTextInputIsOnlyLetters([Label, Name, Description, Country, City]) &&
+                ValidationUtil.StringsHaveValue([Label, Name, Description, Country, City]) &&
+                ValidationUtil.InputHasValue(EventDate) &&
+                ValidationUtil.IsDateInFuture(EventDate) &&
+                ValidationUtil.InputHasValue(EventType) &&
+                ValidationUtil.InputHasValue(Attendance) &&
+                ValidationUtil.DecimalValueValidation([AverageHostingExpenses]);
+        }
+        public override void OkCommandExecute()
+        {
+            Event editedEvent = new()
+            {
+                Id = Id,
+                Label = Label,
+                Name = Name,
+                Description = Description,
+                Type = EventType.Value,
+                Attendance = Attendance.Value,
+                IconUrl = IconUrl,
+                IsCharity = IsCharity,
+                AverageHostingExpenses = decimal.Parse(AverageHostingExpenses),
+                Country = Country,
+                City = City,
+                PreviousEventDates = new List<DateTime>(PreviousEventDates),
+                EventDate = EventDate,
+                Tags = new List<Tag>(Tags)
+            };
 
-        //    Repository.Instance.EditEvent(newEvent);
-        //}
+            Repository.Instance.EditEvent(editedEvent);
+            base.OkCommandExecute();
+        }
         #endregion commands
         #region constructors
         public EditEventViewModel(Event selectedEvent)
@@ -307,8 +319,8 @@ namespace EventLocator.Domain.Events.Edit
             EventTypeDropdownOptions = Repository.Instance.eventTypeDropdownOptions();
             TagDropdownOptions = Repository.Instance.tagDropdownOptions();
             setProperties(selectedEvent);
+            EntityName = "Event";
         }
-
         private void setProperties(Event selectedEvent)
         {
             Id = selectedEvent.Id;
@@ -319,7 +331,7 @@ namespace EventLocator.Domain.Events.Edit
             Attendance = AttendanceDropdownOptions.Find(option => option.Value == selectedEvent.Attendance);
             IconUrl = selectedEvent.IconUrl;
             IsCharity = selectedEvent.IsCharity;
-            AverageHostingExpenses = selectedEvent.AverageHostingExpenses.ToString();
+            AverageHostingExpenses = (selectedEvent.AverageHostingExpenses / 100).ToString("F2", CultureInfo.InvariantCulture);
             Country = selectedEvent.Country;
             City = selectedEvent.City;
             EventDate = selectedEvent.EventDate;

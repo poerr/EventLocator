@@ -397,7 +397,7 @@
                 <DataGridTextColumn Header="Type" Binding="{Binding Type.Label}" Width="*"/>
                 <DataGridTextColumn Header="Attendance" Binding="{Binding Attendance}" Width="*"/>
                 <DataGridTextColumn Header="Charity" Binding="{Binding IsCharity}" Width="*"/>
-                <DataGridTextColumn Header="Expenses" Binding="{Binding AverageHostingExpenses}" Width="*"/>
+                <DataGridTextColumn Header="Expenses" Binding="{Binding AverageHostingExpenses, Converter={StaticResource DecimalToStringConverter}}" Width="*"/>
                 <DataGridTextColumn Header="Country" Binding="{Binding Country}" Width="*"/>
                 <DataGridTextColumn Header="City" Binding="{Binding City}" Width="*"/>
                 <DataGridTextColumn Header="Date" Binding="{Binding EventDate, StringFormat='dd.MM.yyyy.'}" Width="*"/>

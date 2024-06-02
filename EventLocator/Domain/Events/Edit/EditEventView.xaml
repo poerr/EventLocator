@@ -1,163 +1,602 @@
-﻿<Window x:Class="EventLocator.Domain.Events.Edit.EditEventView"
+﻿<Page x:Class="EventLocator.Domain.Events.Edit.EditEventView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EventLocator.Domain.Events.Edit"
+        xmlns:val="clr-namespace:EventLocator.Validation"
         mc:Ignorable="d"
-        Title="EditEventView" Height="700" Width="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition Height="100"/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+        Title="EditEventView" Height="1080" Width="1920">
+    <StackPanel>
+        <Label 
+            Content="{Binding Id}" 
+            ContentStringFormat="Edit event {0}"
+            FontSize="50" 
+            FontWeight="Bold"
+            HorizontalAlignment="Center"/>
 
-        <TextBlock FontWeight="Bold" Grid.Row="0" Grid.ColumnSpan="2">Add event</TextBlock>
+        <Grid Margin="0 50 0 0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
 
-        <Label Content="Label:" Grid.Row="1" Grid.Column="0"/>
-        <TextBox x:Name="Label" Text="{Binding Path=Label, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="1" Grid.Column="1"/>
+            <Label 
+                Style="{StaticResource InputLabel}" 
+                Content="Label:"
+                HorizontalAlignment="Right"
+                Margin="0 30 0 0"
+                Grid.Row="0" Grid.Column="0"/>
+            <TextBox 
+                x:Name="Label" 
+                HorizontalAlignment="Left"
+                Margin="0 30 0 0"
+                Grid.Row="0" Grid.Column="1">
+                <TextBox.Text>
+                    <Binding Path="Label" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <val:LetterValidationRule ValidationStep="UpdatedValue"/>
+                            <val:RequiredTextInputValidationRule ValidationStep="UpdatedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
 
-        <Label Content="Name:" Grid.Row="2" Grid.Column="0"/>
-        <TextBox x:Name="Name" Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="2" Grid.Column="1"/>
+                            <AdornedElementPlaceholder Grid.Row="0" Grid.Column="0" x:Name="Label"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
 
-        <Label Content="Description:" Grid.Row="3" Grid.Column="0"/>
-        <TextBox x:Name="Description" Text="{Binding Path=Description, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="3" Grid.Column="1"/>
+            <Label 
+                Style="{StaticResource InputLabel}" 
+                Content="Name:"
+                HorizontalAlignment="Right"
+                Margin="0 30 0 0"
+                Grid.Row="0" Grid.Column="2"/>
+            <TextBox 
+                x:Name="Name" 
+                HorizontalAlignment="Left"
+                Margin="0 30 0 0"
+                Grid.Row="0" Grid.Column="3">
+                <TextBox.Text>
+                    <Binding Path="Name" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <val:LetterValidationRule ValidationStep="UpdatedValue"/>
+                            <val:RequiredTextInputValidationRule ValidationStep="UpdatedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
 
-        <Label Content="Attendance:" Grid.Row="4" Grid.Column="0"/>
-        <ComboBox 
-        x:Name="Attendance" 
-        ItemsSource="{Binding Path=AttendanceDropdownOptions}" 
-        SelectedItem="{Binding Path=Attendance, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-        Grid.Row="4" Grid.Column="1"
-    >
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Name}"></TextBlock>
-                    </StackPanel>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
+                            <AdornedElementPlaceholder Grid.Row="0" Grid.Column="0" x:Name="Name"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
 
-        <Label Content="Event type:" Grid.Row="5" Grid.Column="0"/>
-        <ComboBox 
-        x:Name="EventType" 
-        ItemsSource="{Binding Path=EventTypeDropdownOptions}" 
-        SelectedItem="{Binding Path=EventType, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-        Grid.Row="5" Grid.Column="1"
-    >
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Name}"></TextBlock>
-                    </StackPanel>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
+            <Label 
+                Style="{StaticResource InputLabel}" 
+                Content="Description:"
+                HorizontalAlignment="Right"
+                Margin="0 30 0 0"
+                Grid.Row="0" Grid.Column="4"/>
+            <TextBox 
+                x:Name="Description" 
+                HorizontalAlignment="Left"
+                Margin="0 30 0 0"
+                Grid.Row="0" Grid.Column="5">
+                <TextBox.Text>
+                    <Binding Path="Description" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <val:LetterValidationRule ValidationStep="UpdatedValue"/>
+                            <val:RequiredTextInputValidationRule ValidationStep="UpdatedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
 
-        <Button Content="Select icon" Click="SelectImage_Click" Grid.Row="6" Grid.Column="0"></Button>
-        <Image x:Name="SelectedImage" Stretch="Uniform" Width="50" Grid.Row="6" Grid.Column="1" Source="{Binding Path=IconUrl, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                            <AdornedElementPlaceholder Grid.Row="0" Grid.Column="0" x:Name="Description"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
 
-        <Label Content="Charity:" Grid.Row="7" Grid.Column="0"/>
-        <CheckBox x:Name="Charity" IsChecked="{Binding Path=IsCharity, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="7" Grid.Column="1"/>
-
-        <Label Content="Expenses:" Grid.Row="8" Grid.Column="0"/>
-        <TextBox x:Name="Expenses" Text="{Binding Path=AverageHostingExpenses, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="8" Grid.Column="1"/>
-
-        <Label Content="Country:" Grid.Row="9" Grid.Column="0"/>
-        <TextBox x:Name="Country" Text="{Binding Path=Country, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="9" Grid.Column="1"/>
-
-        <Label Content="City:" Grid.Row="10" Grid.Column="0"/>
-        <TextBox x:Name="City" Text="{Binding Path=City, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="10" Grid.Column="1"/>
-
-        <Label Content="Previous dates:" Grid.Row="11" Grid.Column="0"/>
-        <StackPanel Orientation="Horizontal" Grid.Row="11" Grid.Column="1">
-            <DatePicker SelectedDate="{Binding Path=SelectedPreviousDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-            <Button Command="{Binding AddPreviousDateCommand}" Content="Add date"></Button>
-        </StackPanel>
-
-        <Label Content="Event date:" Grid.Row="12" Grid.Column="0"/>
-        <DatePicker x:Name="EventDate" SelectedDate="{Binding Path=EventDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="12" Grid.Column="1"/>
-
-        <Label Content="Tags:" Grid.Row="13" Grid.Column="0"/>
-        <StackPanel Orientation="Horizontal" Grid.Row="13" Grid.Column="1">
+            <Label 
+            Style="{StaticResource InputLabel}" 
+            Content="Event type:"
+            HorizontalAlignment="Right"
+            Margin="0 30 0 0"
+            Grid.Row="1" Grid.Column="0"/>
             <ComboBox 
-            x:Name="Tags" 
-            ItemsSource="{Binding Path=TagDropdownOptions}" 
-            SelectedItem="{Binding Path=SelectedTag, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Name}"></TextBlock>
-                        </StackPanel>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
+            ItemsSource="{Binding EventTypeDropdownOptions}"
+            FontSize="20"
+            FontWeight="Bold"
+            VerticalContentAlignment="Center"
+            HorizontalContentAlignment="Center"
+            DisplayMemberPath="Name"
+            HorizontalAlignment="Left"
+            Width="250"
+            Margin="0 30 0 0"
+            Grid.Row="1" Grid.Column="1">
+                <ComboBox.SelectedItem>
+                    <Binding Path="EventType" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <val:RequiredFieldValidationRule ValidationStep="RawProposedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </ComboBox.SelectedItem>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <AdornedElementPlaceholder Grid.Row="0" Grid.Column="0" x:Name="Description"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
             </ComboBox>
-            <Button Command="{Binding AddTagCommand}" Content="Add tag"></Button>
-        </StackPanel>
 
-        <Label Content="Tags:" Grid.Row="14" Grid.Column="0"/>
-        <StackPanel Orientation="Horizontal" Grid.Row="14" Grid.Column="1">
-            <ListBox 
-                x:Name="TagsListed" 
-                SelectedItem="{Binding Path=TagToRemove, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                ItemsSource="{Binding Path=Tags}"
-            >
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Label}"></TextBlock>
+            <Label 
+            Style="{StaticResource InputLabel}" 
+            Content="Attendance:"
+            HorizontalAlignment="Right"
+            Margin="0 30 0 0"
+            Grid.Row="1" Grid.Column="2"/>
+            <ComboBox 
+            ItemsSource="{Binding AttendanceDropdownOptions}"
+            FontSize="20"
+            FontWeight="Bold"
+            VerticalContentAlignment="Center"
+            HorizontalContentAlignment="Center"
+            DisplayMemberPath="Name"
+            HorizontalAlignment="Left"
+            Width="250"
+            Margin="0 30 0 0"
+            Grid.Row="1" Grid.Column="3">
+                <ComboBox.SelectedItem>
+                    <Binding Path="Attendance" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <val:RequiredFieldValidationRule ValidationStep="RawProposedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </ComboBox.SelectedItem>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
 
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <Button Command="{Binding RemoveTagCommand}" Content="Remove"></Button>
-        </StackPanel>
+                            <AdornedElementPlaceholder Grid.Row="0" Grid.Column="0" x:Name="Description"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </ComboBox>
 
+            <Label 
+            Style="{StaticResource InputLabel}" 
+            Content="Is charity:"
+            HorizontalAlignment="Right"
+            Margin="0 30 0 0"
+            Grid.Row="1" Grid.Column="4"/>
+            <CheckBox 
+            IsChecked="{Binding IsCharity}"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            Width="50"
+            Margin="0 30 0 0"
+            Grid.Row="1" Grid.Column="5">
+                <CheckBox.LayoutTransform>
+                    <ScaleTransform ScaleX="2.2" ScaleY="2.2"/>
+                </CheckBox.LayoutTransform>
+            </CheckBox>
 
-        <Label Content="Tags:" Grid.Row="15" Grid.Column="0"/>
-        <StackPanel Orientation="Horizontal" Grid.Row="15" Grid.Column="1">
-            <ListBox 
-                x:Name="DatesListed" 
-                SelectedItem="{Binding Path=PreviousDateToRemove, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                ItemsSource="{Binding Path=PreviousEventDates}"
-            >
+            <Label 
+            Style="{StaticResource InputLabel}" 
+            Content="Country:"
+            HorizontalAlignment="Right"
+            Margin="0 30 0 0"
+            Grid.Row="2" Grid.Column="0"/>
+            <TextBox 
+            x:Name="Country"
+            HorizontalAlignment="Left"
+            Margin="0 30 0 0"
+            Grid.Row="2" Grid.Column="1">
+                <TextBox.Text>
+                    <Binding Path="Country" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <val:LetterValidationRule ValidationStep="UpdatedValue"/>
+                            <val:RequiredTextInputValidationRule ValidationStep="UpdatedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
 
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding}"></TextBlock>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <Button Command="{Binding RemovePreviousDateCommand}" Content="Remove"></Button>
-        </StackPanel>
+                            <AdornedElementPlaceholder Grid.Row="0" Grid.Column="0" x:Name="Country"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
 
-        <Button Click="Edit_Click" Command="{Binding OkCommand}" Grid.Row="16" Grid.Column="0"></Button>
-        <Button Click="Cancel_Click" Command="{Binding CancelCommand}" Grid.Row="16" Grid.Column="1"></Button>
-    </Grid>
-</Window>
+            <Label 
+            Style="{StaticResource InputLabel}" 
+            Content="City:"
+            HorizontalAlignment="Right"
+            Margin="0 30 0 0"
+            Grid.Row="2" Grid.Column="2"/>
+            <TextBox 
+           x:Name="City"
+           HorizontalAlignment="Left"
+           Margin="0 30 0 0"
+           Grid.Row="2" Grid.Column="3">
+                <TextBox.Text>
+                    <Binding Path="City" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <val:LetterValidationRule ValidationStep="UpdatedValue"/>
+                            <val:RequiredTextInputValidationRule ValidationStep="UpdatedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <AdornedElementPlaceholder Grid.Row="0" Grid.Column="0" x:Name="City"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+
+            <Button 
+            Content="Select icon" 
+            Click="SelectImage_Click" 
+            HorizontalAlignment="Right"
+            Margin="0 30 0 0"
+            Grid.Row="3" Grid.Column="0"/>
+            <Image 
+            x:Name="SelectedImage"
+            Source="{Binding Path=IconUrl, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+            Stretch="Uniform" 
+            HorizontalAlignment="Left"
+            Margin="100 30 0 0"
+            Width="50"
+            Grid.Row="3" Grid.Column="1"/>
+
+            <Label 
+            Style="{StaticResource InputLabel}" 
+            Content="Expenses:"
+            HorizontalAlignment="Right"
+            Margin="0 30 0 0"
+            Grid.Row="3" Grid.Column="2"/>
+            <TextBox 
+            x:Name="AverageHostingExpenses" 
+            HorizontalAlignment="Left"
+            Margin="0 30 0 0"
+            Grid.Row="3" Grid.Column="3">
+                <TextBox.Text>
+                    <Binding Path="AverageHostingExpenses" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <val:StringToDecimalValidationRule ValidationStep="UpdatedValue"/>
+                            <val:RequiredTextInputValidationRule ValidationStep="UpdatedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <AdornedElementPlaceholder Grid.Row="0" Grid.Column="0" x:Name="AverageHostingExpenses"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+
+            <Label 
+                Style="{StaticResource InputLabel}" 
+                Content="Event date:"
+                HorizontalAlignment="Right"
+                Margin="0 30 0 0"
+                Grid.Row="4" Grid.Column="0"/>
+            <DatePicker
+                x:Name="EventDate" 
+                HorizontalAlignment="Left"
+                Margin="0 30 0 0"
+                Height="70" 
+                Grid.Row="4" Grid.Column="1">
+                <DatePicker.SelectedDate>
+                    <Binding Path="EventDate" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <val:DateValidationRule ValidationStep="UpdatedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </DatePicker.SelectedDate>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <AdornedElementPlaceholder Grid.Row="0" Grid.Column="0" x:Name="AverageHostingExpenses"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </DatePicker>
+
+            <Label 
+                Style="{StaticResource InputLabel}" 
+                Content="Previous event date:"
+                HorizontalAlignment="Right"
+                Margin="0 30 0 0"
+                Grid.Row="4" Grid.Column="2"/>
+            <StackPanel 
+                HorizontalAlignment="Left"
+                Orientation="Horizontal"
+                Margin="0 30 0 0"
+                Grid.Row="4" Grid.Column="3">
+                <DatePicker
+                    x:Name="PreviousEventDate" 
+                    HorizontalAlignment="Left"
+                    Height="70"
+                    Grid.Row="4" Grid.Column="3">
+                    <DatePicker.SelectedDate>
+                        <Binding Path="SelectedPreviousDate" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                            <Binding.ValidationRules>
+                                <val:PastDateValidationRule ValidationStep="UpdatedValue"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </DatePicker.SelectedDate>
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <AdornedElementPlaceholder Grid.Row="0" Grid.Column="0" x:Name="AverageHostingExpenses"/>
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </DatePicker>
+                <Button
+                    Command="{Binding AddPreviousDateCommand}"
+                    Width="50"
+                    Height="50"
+                    Margin="10">
+                    <Image 
+                        Source="../../../Resources/Images/add_icon.png"/>
+                </Button>
+            </StackPanel>
+
+            <Label 
+                Style="{StaticResource InputLabel}" 
+                Content="Tag:"
+                HorizontalAlignment="Right"
+                Margin="0 30 0 0"
+                Grid.Row="5" Grid.Column="0"/>
+            <StackPanel 
+                Orientation="Horizontal" 
+                Grid.Row="5" Grid.Column="1">
+                <ComboBox 
+                    x:Name="Tags" 
+                    ItemsSource="{Binding Path=TagDropdownOptions}" 
+                    SelectedItem="{Binding Path=SelectedTag, Mode=TwoWay}"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    DisplayMemberPath="Name"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Width="250"
+                    Height="50"
+                    Margin="0 30 0 0"/>
+                <Button
+                    Command="{Binding AddTagCommand}"
+                    Width="50"
+                    Height="50"
+                    Margin="10 30 0 0"
+                    VerticalAlignment="Top">
+                    <Image 
+                        Source="../../../Resources/Images/add_icon.png"/>
+                </Button>
+            </StackPanel>
+
+            <Label 
+                Style="{StaticResource InputLabel}" 
+                Content="Tags:"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Margin="0 30 0 0"
+                Grid.RowSpan="2"
+                Grid.Row="6" Grid.Column="0"/>
+            <StackPanel 
+                Orientation="Horizontal" 
+                VerticalAlignment="Top"
+                Margin="0 30 0 0"
+                Grid.Row="6" Grid.Column="1">
+                <ListBox
+                    Width="250"
+                    x:Name="SelectedTags" 
+                    SelectedItem="{Binding Path=TagToRemove, Mode=TwoWay}"
+                    ItemsSource="{Binding Path=Tags}"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    HorizontalAlignment="Left"
+                    Height="80">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Label}" Foreground="{Binding Color}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Button
+                    Command="{Binding RemoveTagCommand}"
+                    Width="50"
+                    Height="50"
+                    Margin="10 30 0 0"
+                    VerticalAlignment="Top">
+                    <Image 
+                        Source="../../../Resources/Images/delete_icon.png"/>
+                </Button>
+            </StackPanel>
+
+            <Label 
+                Style="{StaticResource InputLabel}" 
+                Content="Previous dates:"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Margin="0 30 0 0"
+                Grid.RowSpan="2"
+                Grid.Row="5" Grid.Column="2"/>
+            <StackPanel 
+                Orientation="Horizontal" 
+                VerticalAlignment="Top"
+                Margin="0 30 0 0"
+                Grid.Row="5" Grid.Column="3">
+                <ListBox
+                    SelectedItem="{Binding Path=PreviousDateToRemove, Mode=TwoWay}"
+                    ItemsSource="{Binding Path=PreviousEventDates}"
+                    Width="250"
+                    Height="80"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    HorizontalAlignment="Left"
+                    ItemStringFormat="dd.MM.yyyy."/>
+                <Button
+                    Command="{Binding RemovePreviousDateCommand}"
+                    Width="50"
+                    Height="50"
+                    Margin="10 30 0 0"
+                    VerticalAlignment="Top">
+                    <Image 
+                        Source="../../../Resources/Images/delete_icon.png"/>
+                </Button>
+            </StackPanel>
+
+            <Button 
+                Style="{StaticResource AddButton}" 
+                Command="{Binding OkCommand}"
+                HorizontalAlignment="Right"
+                Margin="0 20 20 0"
+                Grid.ColumnSpan="3"
+                Grid.Row="7" Grid.Column="0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Image Source="../../../Resources/Images/check_icon.png" Width="35"></Image>
+                    <Label Style="{StaticResource ButtonLabel}" Content="Save"/>
+                </StackPanel>
+            </Button>
+
+            <Button 
+                Style="{StaticResource DeleteButton}" 
+                Command="{Binding CancelCommand}" 
+                HorizontalAlignment="Left"
+                Margin="20 20 0 0"
+                Grid.ColumnSpan="3"
+                Grid.Row="7" Grid.Column="3">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Image Source="../../../Resources/Images/cancel_icon.png" Width="35"></Image>
+                    <Label Style="{StaticResource ButtonLabel}" Content="Cancel"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+    </StackPanel>
+</Page>

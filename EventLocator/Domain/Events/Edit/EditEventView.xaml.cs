@@ -20,21 +20,12 @@ namespace EventLocator.Domain.Events.Edit
     /// <summary>
     /// Interaction logic for EditEventView.xaml
     /// </summary>
-    public partial class EditEventView : Window
+    public partial class EditEventView : Page
     {
         public EditEventView(Event selectedEvent)
         {
             DataContext = new EditEventViewModel(selectedEvent);
             InitializeComponent();
-        }
-        private void Edit_Click(object sender, RoutedEventArgs e)
-        {
-            //(DataContext as EditEventViewModel).EditAfterOk();
-            Close();
-        }
-        private void Cancel_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
         }
         private void SelectImage_Click(object sender, RoutedEventArgs e)
         {

@@ -13,6 +13,7 @@
 
             <converters:MultiValueJoinConverter x:Key="MultiValueJoinConverter" />
             <converters:DateTimeConverter x:Key="DateTimeConverter" />
+            <converters:DecimalToStringConverter x:Key="DecimalToStringConverter" />
         </ResourceDictionary>
     </Application.Resources>
 

@@ -1,5 +1,6 @@
 ﻿using Accessibility;
 using EventLocator.Data;
+using EventLocator.Domain.Events.Edit;
 using EventLocator.Domain.EventTypes.Details;
 using EventLocator.Domain.EventTypes.Edit;
 using EventLocator.Domain.Models;
@@ -198,7 +199,7 @@ namespace EventLocator.Common
             {
                 if(action == "Edit")
                 {
-
+                    frame.Navigate(new EditEventView(selected as Event));
                 }
                 else if(action == "Details")
                 {

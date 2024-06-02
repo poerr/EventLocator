@@ -59,8 +59,10 @@
                             </Label>
                             <Label 
                                 Style="{StaticResource ListItemLabel}" 
-                                Content="{Binding Description}" 
-                                Grid.Row="4" Grid.Column="0"/>
+                                Grid.Row="4" Grid.Column="0">
+                                    <TextBlock Text="{Binding Description}"
+                                    TextWrapping="Wrap" />
+                            </Label>
                             <Image 
                                 Source="{Binding IconUrl}" 
                                 Grid.RowSpan="3" Grid.Column="1" 
