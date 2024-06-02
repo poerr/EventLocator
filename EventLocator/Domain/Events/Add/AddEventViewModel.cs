@@ -30,7 +30,7 @@ namespace EventLocator.Domain.Events.Add
         private ComboBoxData<Tag> _selectedTag;
         private DateTime _selectedPreviousDate = DateTime.Now.AddDays(-1);
         private Tag _tagToRemove;
-        private DateTime _previousDateToRemove;
+        private DateTime _previousDateToRemove = default;
         public string Label
         {
             get { return _label; }

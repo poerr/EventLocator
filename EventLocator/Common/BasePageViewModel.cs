@@ -1,5 +1,6 @@
 ﻿using Accessibility;
 using EventLocator.Data;
+using EventLocator.Domain.Events.Details;
 using EventLocator.Domain.Events.Edit;
 using EventLocator.Domain.EventTypes.Details;
 using EventLocator.Domain.EventTypes.Edit;
@@ -190,7 +191,6 @@ namespace EventLocator.Common
                 frame.Navigate(new Uri(uriPath, UriKind.RelativeOrAbsolute));
             }
         }
-
         protected void NavigateToPageWithEntity(Entity selected, Frame frame, string action)
         {
             Type entityType = selected.GetType();
@@ -203,7 +203,7 @@ namespace EventLocator.Common
                 }
                 else if(action == "Details")
                 {
-                    
+                    frame.Navigate(new DetailsEventView(selected as Event));
                 }
             }
             else if(entityType == typeof(EventType))

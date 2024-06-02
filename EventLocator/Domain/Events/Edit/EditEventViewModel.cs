@@ -32,7 +32,7 @@ namespace EventLocator.Domain.Events.Edit
         private ComboBoxData<Tag> _selectedTag;
         private DateTime _selectedPreviousDate;
         private Tag _tagToRemove;
-        private DateTime _previousDateToRemove;
+        private DateTime _previousDateToRemove = default;
         public Guid Id
         {
             get { return _id; }

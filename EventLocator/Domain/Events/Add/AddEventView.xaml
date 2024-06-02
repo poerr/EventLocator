@@ -188,22 +188,22 @@
             </ComboBox>
 
             <Label 
-            Style="{StaticResource InputLabel}" 
-            Content="Attendance:"
-            HorizontalAlignment="Right"
-            Margin="0 30 0 0"
-            Grid.Row="1" Grid.Column="2"/>
+                Style="{StaticResource InputLabel}" 
+                Content="Attendance:"
+                HorizontalAlignment="Right"
+                Margin="0 30 0 0"
+                Grid.Row="1" Grid.Column="2"/>
             <ComboBox 
-            ItemsSource="{Binding AttendanceDropdownOptions}"
-            FontSize="20"
-            FontWeight="Bold"
-            VerticalContentAlignment="Center"
-            HorizontalContentAlignment="Center"
-            DisplayMemberPath="Name"
-            HorizontalAlignment="Left"
-            Width="250"
-            Margin="0 30 0 0"
-            Grid.Row="1" Grid.Column="3">
+                ItemsSource="{Binding AttendanceDropdownOptions}"
+                FontSize="20"
+                FontWeight="Bold"
+                VerticalContentAlignment="Center"
+                HorizontalContentAlignment="Center"
+                DisplayMemberPath="Name"
+                HorizontalAlignment="Left"
+                Width="250"
+                Margin="0 30 0 0"
+                Grid.Row="1" Grid.Column="3">
                 <ComboBox.SelectedItem>
                     <Binding Path="Attendance" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
                         <Binding.ValidationRules>
@@ -551,7 +551,7 @@
                 Margin="0 30 0 0"
                 Grid.Row="5" Grid.Column="3">
                 <ListBox
-                    SelectedItem="{Binding Path=PreviousDateToRemove, Mode=OneWayToSource}"
+                    SelectedItem="{Binding Path=PreviousDateToRemove, Mode=TwoWay}"
                     ItemsSource="{Binding Path=PreviousEventDates}"
                     Width="250"
                     Height="80"
