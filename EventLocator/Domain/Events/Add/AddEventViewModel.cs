@@ -1,6 +1,7 @@
 ﻿using EventLocator.Common;
 using EventLocator.Data;
 using EventLocator.Domain.Models;
+using EventLocator.Validation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,11 +24,11 @@ namespace EventLocator.Domain.Events.Add
         private string _averageHostingExpenses;
         private string _country;
         private string _city;
-        private DateTime _eventDate;
+        private DateTime _eventDate = DateTime.Now;
         private ObservableCollection<Tag> _tags = [];
         private ObservableCollection<DateTime> _previousEventDates = [];
         private ComboBoxData<Tag> _selectedTag;
-        private DateTime _selectedPreviousDate;
+        private DateTime _selectedPreviousDate = DateTime.Now.AddDays(-1);
         private Tag _tagToRemove;
         private DateTime _previousDateToRemove;
         public string Label
@@ -193,6 +194,7 @@ namespace EventLocator.Domain.Events.Add
             AttendanceDropdownOptions = Repository.Instance.attendanceDropdownOptions();
             EventTypeDropdownOptions = Repository.Instance.eventTypeDropdownOptions();
             TagDropdownOptions = Repository.Instance.tagDropdownOptions();
+            EntityName = "Event";
         }
         #endregion constructors
         #region commands
@@ -272,31 +274,41 @@ namespace EventLocator.Domain.Events.Add
         }
         public bool CanAddPreviousDateCommandExecute()
         {
-            return SelectedPreviousDate != default;
+            return SelectedPreviousDate != default && ValidationUtil.AreDatesInPast([SelectedPreviousDate]);
         }
-        //public override void AddAfterOk()
-        //{
-        //    base.AddAfterOk();
-        //    Event newEvent = new()
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        Label = Label,
-        //        Name = Name,
-        //        Description = Description,
-        //        Type = EventType.Value,
-        //        Attendance = Attendance.Value,
-        //        IconUrl = IconUrl,
-        //        IsCharity = IsCharity,
-        //        AverageHostingExpenses = decimal.Parse(AverageHostingExpenses),
-        //        Country = Country,
-        //        City = City,
-        //        PreviousEventDates = new List<DateTime>(PreviousEventDates),
-        //        EventDate = EventDate,
-        //        Tags = new List<Tag>(Tags)
-        //    };
+        public override bool CanOkCommandExecute()
+        {
+            return ValidationUtil.ValidateTextInputIsOnlyLetters([Label, Name, Description, Country, City]) &&
+                ValidationUtil.StringsHaveValue([Label, Name, Description, Country, City]) &&
+                ValidationUtil.InputHasValue(EventDate) &&
+                ValidationUtil.IsDateInFuture(EventDate) &&
+                ValidationUtil.InputHasValue(EventType) &&
+                ValidationUtil.InputHasValue(Attendance) &&
+                ValidationUtil.DecimalValueValidation([AverageHostingExpenses]);
+        }
+        public override void OkCommandExecute()
+        {
+            Event newEvent = new()
+            {
+                Id = Guid.NewGuid(),
+                Label = Label,
+                Name = Name,
+                Description = Description,
+                Type = EventType.Value,
+                Attendance = Attendance.Value,
+                IconUrl = IconUrl ?? EventType.Value.IconUrl,
+                IsCharity = IsCharity,
+                AverageHostingExpenses = decimal.Parse(AverageHostingExpenses),
+                Country = Country,
+                City = City,
+                PreviousEventDates = new List<DateTime>(PreviousEventDates),
+                EventDate = EventDate,
+                Tags = new List<Tag>(Tags)
+            };
 
-        //    Repository.Instance.AddEvent(newEvent);
-        //}
+            Repository.Instance.AddEvent(newEvent);
+            base.OkCommandExecute();
+        }
         #endregion commands
         #region functions
         private bool tagAlreadyAdded(Tag checkedTag)

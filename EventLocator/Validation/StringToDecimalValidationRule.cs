@@ -14,10 +14,32 @@ namespace EventLocator.Validation
         {
             try
             {
-                var stringValue = value as string;
+                var stringValue = ValidationUtil.GetBoundValue(value) as string;
                 decimal decimalValue;
 
-                if(decimal.TryParse(stringValue, out decimalValue))
+                if (!string.IsNullOrEmpty(stringValue))
+                {
+                    string[] parts = stringValue.Split(".");
+                    if (parts.Length != 2)
+                    {
+                        return new ValidationResult(false, "Enter a numeric value with 2 decimals.");
+                    }
+                    foreach (string part in parts)
+                    {
+                        foreach (char character in part)
+                        {
+                            if (!char.IsNumber(character))
+                            {
+                                return new ValidationResult(false, "Enter a numeric value with 2 decimals.");
+                            }
+                        }
+                    }
+                    if (parts[1].Length != 2)
+                    {
+                        return new ValidationResult(false, "Enter a numeric value with 2 decimals.");
+                    }
+                }
+                if (decimal.TryParse(stringValue, out decimalValue))
                 {
                     return new ValidationResult(true, null);
                 }

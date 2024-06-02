@@ -400,7 +400,7 @@
                 <DataGridTextColumn Header="Expenses" Binding="{Binding AverageHostingExpenses}" Width="*"/>
                 <DataGridTextColumn Header="Country" Binding="{Binding Country}" Width="*"/>
                 <DataGridTextColumn Header="City" Binding="{Binding City}" Width="*"/>
-                <DataGridTextColumn Header="Date" Binding="{Binding EventDate}" Width="*"/>
+                <DataGridTextColumn Header="Date" Binding="{Binding EventDate, StringFormat='dd.MM.yyyy.'}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
 
