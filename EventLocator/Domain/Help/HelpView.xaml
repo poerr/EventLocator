@@ -1,0 +1,609 @@
+﻿<Page x:Class="EventLocator.Domain.Help.HelpView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:EventLocator.Domain.Help"
+      mc:Ignorable="d" 
+      d:DesignHeight="1080" d:DesignWidth="1920"
+      Title="HelpView">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <Label 
+                Content="Help section" 
+                FontSize="50" 
+                FontWeight="Bold"
+                Margin="0 0 0 50"
+                HorizontalAlignment="Center"/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                Margin="0 0 0 50"
+                Text="Here you will find instructions on how to use the application."/>
+            <Label 
+                Content="Map" 
+                FontSize="30" 
+                FontWeight="Bold"
+                Margin="0 0 0 50"
+                HorizontalAlignment="Center"/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 10"
+                Text="When you open the map tab on the navigation bar, a page with a list of events on the left side and a map on the right side will appear."/>
+            <Image Width="1200" Source="../../Resources/Images/MapView.png"/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 20 0 20"
+                Text="The map supports draging the events from the list onto the map and also dragging the events from the map back to the list. Note that dropping the event on the map will remove it from the list."/>
+            <Image Width="1200" Source="../../Resources/Images/DragFromList.png" Margin="0 20 0 60"/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="To start the drag and drop process of an event from the list, press the left click of your mouse and hold it. Then just simply drag it onto the map to the desired location."/>
+            <Image Width="1200" Source="../../Resources/Images/DraggedToMap.png" Margin="0 20 0 60"/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="You can also move the event around on the map by holding left click, after which a little rectangle will appear next to your mouse which indicates that the dragging process has started. NOTE THAT EVENTS CANNOT OVERLAP AND IF YOU WERE GOING TO PLACE AN EVENT OVER AN EXISTING ONE, IT WILL BE PUT BACK TO ITS ORIGINAL PLACE."/>
+            <Image Width="500" Source="../../Resources/Images/DraggedEventView.png" Margin="0 20 0 60"/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="Dragging an event from a map is also a seamless process, just hold the left click on the event and drag it onto the list, and it will be successfully listed."/>
+            <Image Width="500" Source="../../Resources/Images/DragginTheEventBackToList.png" Margin="0 20 0 60"/>
+            <Image Width="500" Source="../../Resources/Images/DragEventToList.png" Margin="0 20 0 60"/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="You can also filter the events on the map by name, just start typing out the name of a desired event and the events you see will change."/>
+
+            <Label 
+                Content="Events" 
+                FontSize="30" 
+                FontWeight="Bold"
+                Margin="0 0 0 50"
+                HorizontalAlignment="Center"/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="Locating to the 'EVENTS' page is done through clicking on the 'EVENTS' button in the navigation bar at the top part of the screen. There you will be met with search inputs, a filter input, a grid with all tags displayed and action buttons for adding, editing or showing details of a certain event."/>
+
+            <Label 
+                Content="Searching" 
+                FontSize="20" 
+                FontWeight="Bold"
+                Margin="0 0 0 50"
+                HorizontalAlignment="Center"/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="Searcing is done by inputing values into search fields and pressing the 'Search' button which will show the search results in the grid. When putting in search inputs, keep in mind the data validations such as not inputing anything other than letters into text inputs etc. 'Label', 'Name', 'Description', 'Country', 'City' are all text fields and will allow only letters to be put in. 'Event type' and 'Attendance' fields are dropdown lists, where you choose from a list of options. 'Is charity' fields is a check box which you check and uncheck by clicking on it, there are 'Event date from' and 'Event date to' fields where you pick a date by clicking on the small calendar icon and selecting the desired date. Fields 'Expenses from' and 'Expenses to' expect a decimal number with 2 decimal points and a dot as a denominator."/>
+
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="You can clear the search result by pressing the 'Clear search' button which will restore the original tag list and will empty out the search inputs."/>
+            <Label 
+                Content="Filtering" 
+                FontSize="20" 
+                FontWeight="Bold"
+                Margin="0 0 0 50"
+                HorizontalAlignment="Center"/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="To filter out grid events, just start typing in the filter field and results will change in real time. The events are filtered by label, name, description, attendance, city, country and average hosting expenses. Clearing out the filter will reset the results."/>
+            <Label 
+                Content="Adding an event" 
+                FontSize="20" 
+                FontWeight="Bold"
+                Margin="0 0 0 50"
+                HorizontalAlignment="Center"/>
+
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="To go to the page where you can add a new event, Press the green 'Add' button under the grid."/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="On the add page you will be presented with fields where you can input a label, name, description, choose the type of the event and the attendance from a dropdown list, check is it a charity event, select an icon, type in the average hosting expenses, event date."/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="Label, Name, Description, Country and City are text inputs and they will allow you to input only letters. Event type and Attendance fields are dropdown lists which will allow you to choose from a list of options. Average hosting expenses is a field which will expect a decimal format with 2 decimals and a dot as a separator. There is also an Event date field which will let you pick out a date."/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="There will also be a 'Select icon' button displayed. By clicking on it, a folder explorer will appear prompting you to choose an icon. Choose the icon and press save. The chosen icon will be displayed next to the button. If no Icon is selected, the event will have the icon of the chose event type for that event."/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="Also there will be a dropdown list of Tags. Choose a tag from the list and press on the blue + button next to the list. You will add a tag for this event and it will be displayed in the list below. You will not be able to add the same tag twice."/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="Next to the list that displays selected tags, there is a red cross button. It will be disabled unless you select a tag. Then you can press the button to remove the selected tag from the list."/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="The same goes for Previous event dates. Select a date and press the blue + button to add it to the list of previous dates. You will not be able to add the same date twice."/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="Next to the list that displays selected previous event dates, there is a red cross button. It will be disabled unless you select a date. Then you can press the button to remove the selected date from the list."/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="Adding tags or previous event dates is not required, nor is the adding of an icon."/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="If the green 'Add' button is enabled, that means you put in valid values and can therefore proceed with adding the Event. By clicking this button, you will be taken back to the event grid and your newly added event will be displayed"/>
+
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="If you do not want to add a new event, you can click the red button 'Cancel' which will take you back to the grid and no changes will be made."/>
+            <Label 
+                Content="Editing an event" 
+                FontSize="20" 
+                FontWeight="Bold"
+                Margin="0 0 0 50"
+                HorizontalAlignment="Center"/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="Select an event from the grid by clicking on it. The yellow 'Edit' button will become enabled and you can click it to proceed with editing an existing event."/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="The page looks identical to the 'Add' page, except that in the heading you will see the ID of the event you chose and the fields will be populated with the data of the selected event."/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="Here you can freely edit any of the values you wish, taking care of the validation rules which are the same for the 'Add' page and when you are done, click the green 'Save' button to save your changes. You will be taken back to the event grid where the changes you made are displayed."/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="If you wish to stop editing and not make any changes to the event, click the red 'Cancel' button which will take you to the grid page and no changes will be made."/>
+            <Label 
+                Content="Details and deleting" 
+                FontSize="20" 
+                FontWeight="Bold"
+                Margin="0 0 0 50"
+                HorizontalAlignment="Center"/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="Select an event from the grid by clicking on it. The blue 'Details' button will become enabled and by clicking on it you will be taken to the details page where you will see all the information about the event you chose. The heading will display the ID of the event you chose and under the heading the information will be displayed."/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="Under the detail, there will be 4 buttons. The blue 'List' button which will take you back to the grid, the green 'Add' button which will take you to the page for adding a new event, yellow 'Edit' button which will take you to the editing page of the event you currently chose, and the red 'Delete' button."/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="By clicking on the 'Delete' button, under the buttons a section will appear which will ask you 'Are you sure you want to delete this event?' and will offer you a green 'Confirm' button and a red 'Cancel' button."/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="By clicking on the green 'Confirm' button, you will delete the chosen event and will be taken back to the grid. The tag you just deleted will not be displayed."/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="By clicking on the red 'Cancel' button, the section will disappear and no changes will be made."/>
+
+            <Label 
+                Content="Event types" 
+                FontSize="30" 
+                FontWeight="Bold"
+                Margin="0 0 0 50"
+                HorizontalAlignment="Center"/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="Locating to the 'EVENT TYPES' page is done through clicking on the 'EVENT TYPES' button in the navigation bar at the top part of the screen. There you will be met with search inputs, a filter input, a grid with all event types displayed and action buttons for adding, editing or showing details of a certain event type."/>
+
+            <Label 
+                Content="Searching" 
+                FontSize="20" 
+                FontWeight="Bold"
+                Margin="0 0 0 50"
+                HorizontalAlignment="Center"/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="Searcing is done by inputing values into search fields and pressing the 'Search' button which will show the search results in the grid. When putting in search inputs, keep in mind the data validations such as not inputing anything other than letters into text inputs etc. The Description, Label and Name fields all allow only letters to be put in, otherwise you will get an error saying 'Only letters are allowed' and the text box will turn its border red. The search button will be disabled."/>
+
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="You can clear the search result by pressing the 'Clear search' button which will restore the original event type list and will empty out the search inputs."/>
+            <Label 
+                Content="Filtering" 
+                FontSize="20" 
+                FontWeight="Bold"
+                Margin="0 0 0 50"
+                HorizontalAlignment="Center"/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="To filter out grid event types, just start typing in the filter field and results will change in real time. The event types are filtered by label, name and description. Clearing out the filter will reset the results."/>
+            <Label 
+                Content="Adding an event type" 
+                FontSize="20" 
+                FontWeight="Bold"
+                Margin="0 0 0 50"
+                HorizontalAlignment="Center"/>
+
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="To go to the page where you can add a new event type, Press the green 'Add' button under the grid."/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="On the add page you will be presented with fields where you can input a label, a name, choose an icon and a description. Label, Name and Description fields only allow letters and if you put in anything else, you will not be able to add the new event type and will get an error. All fields are required. The icon is selected by pressing the 'Select icon' button which will open a window explorer. There you will chose which Icon you would like your event type to have and press 'Save' to confirm it."/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="If the green 'Add' button is enabled, that means you put in valid values and can therefore proceed with adding the Event type. By clicking this button, you will be taken back to the event type grid and your newly added tag will be displayed"/>
+
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="If you do not want to add a new event type, you can click the red button 'Cancel' which will take you back to the grid and no changes will be made."/>
+            <Label 
+                Content="Editing an event type" 
+                FontSize="20" 
+                FontWeight="Bold"
+                Margin="0 0 0 50"
+                HorizontalAlignment="Center"/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="Select an event type from the grid by clicking on it. The yellow 'Edit' button will become enabled and you can click it to proceed with editing an existing event type."/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="The page looks identical to the 'Add' page, except that in the heading you will see the ID of the event type you chose and the fields will be populated with the data of the selected event type."/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="Here you can freely edit any of the values you wish, taking care of the validation rules which are the same for the 'Add' page (only letter for the label, name and description and they are required) and when you are done, click the green 'Save' button to save your changes. You will be taken back to the event type grid where the changes you made are displayed."/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="If you wish to stop editing and not make any changes to the event type, click the red 'Cancel' button which will take you to the grid page and no changes will be made."/>
+            <Label 
+                Content="Details and deleting" 
+                FontSize="20" 
+                FontWeight="Bold"
+                Margin="0 0 0 50"
+                HorizontalAlignment="Center"/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="Select an event type from the grid by clicking on it. The blue 'Details' button will become enabled and by clicking on it you will be taken to the details page where you will see all the information about the event type you chose. The heading will display the ID of the event type you chose and under the heading the information will be displayed."/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="Under the detail, there will be 4 buttons. The blue 'List' button which will take you back to the grid, the green 'Add' button which will take you to the page for adding a new event type, yellow 'Edit' button which will take you to the editing page of the event type you currently chose, and the red 'Delete' button."/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="By clicking on the 'Delete' button, under the buttons a section will appear which will ask you 'Are you sure you want to delete this event type?' and will offer you a green 'Confirm' button and a red 'Cancel' button."/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="By clicking on the green 'Confirm' button, you will delete the chosen event type and will be taken back to the grid. The event type you just deleted will not be displayed."/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="By clicking on the red 'Cancel' button, the section will disappear and no changes will be made."/>
+
+            <Label 
+                Content="Tags" 
+                FontSize="30" 
+                FontWeight="Bold"
+                Margin="0 0 0 50"
+                HorizontalAlignment="Center"/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="Locating to the 'TAGS' page is done through clicking on the 'TAGS' button in the navigation bar at the top part of the screen. There you will be met with search inputs, a filter input, a grid with all tags displayed and action buttons for adding, editing or showing details of a certain tag."/>
+
+            <Label 
+                Content="Searching" 
+                FontSize="20" 
+                FontWeight="Bold"
+                Margin="0 0 0 50"
+                HorizontalAlignment="Center"/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="Searcing is done by inputing values into search fields and pressing the 'Search' button which will show the search results in the grid. When putting in search inputs, keep in mind the data validations such as not inputing anything other than letters into text inputs etc."/>
+
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="You can clear the search result by pressing the 'Clear search' button which will restore the original tag list and will empty out the search inputs."/>
+            <Label 
+                Content="Filtering" 
+                FontSize="20" 
+                FontWeight="Bold"
+                Margin="0 0 0 50"
+                HorizontalAlignment="Center"/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="To filter out grid tags, just start typing in the filter field and results will change in real time. The tags are filtered by label and description. Clearing out the filter will reset the results."/>
+            <Label 
+                Content="Adding a tag" 
+                FontSize="20" 
+                FontWeight="Bold"
+                Margin="0 0 0 50"
+                HorizontalAlignment="Center"/>
+            
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="To go to the page where you can add a new tag, Press the green 'Add' button under the grid."/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="On the add page you will be presented with fields where you can input a label, choose a color and a description. Label and Description fields only allow letters and if you put in anything else, you will not be able to add the new tag and will get an error. All fields are required. The color is selected with a color picker, just click on the field and choose a color you like."/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="If the green 'Add' button is enabled, that means you put in valid values and can therefore proceed with adding the Tag. By clicking this button, you will be taken back to the tag grid and your newly added tag will be displayed"/>
+
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="If you do not want to add a new tag, you can click the red button 'Cancel' which will take you back to the grid and no changes will be made."/>
+            <Label 
+                Content="Editing a tag" 
+                FontSize="20" 
+                FontWeight="Bold"
+                Margin="0 0 0 50"
+                HorizontalAlignment="Center"/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="Select a tag from the grid by clicking on it. The yellow 'Edit' button will become enabled and you can click it to proceed with editing an existing tag."/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="The page looks identical to the 'Add' page, except that in the heading you will see the ID of the tag you chose and the fields will be populated with the data of the selected tag."/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="Here you can freely edit any of the values you wish, taking care of the validation rules which are the same for the 'Add' page (only letter for the label and description and they are required) and when you are done, click the green 'Save' button to save your changes. You will be taken back to the tag grid where the changes you made are displayed."/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="If you wish to stop editing and not make any changes to the tag, click the red 'Cancel' button which will take you to the grid page and no changes will be made."/>
+            <Label 
+                Content="Details and deleting" 
+                FontSize="20" 
+                FontWeight="Bold"
+                Margin="0 0 0 50"
+                HorizontalAlignment="Center"/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="Select a tag from the grid by clicking on it. The blue 'Details' button will become enabled and by clicking on it you will be taken to the details page where you will see all the information about the tag you chose. The heading will display the ID of the tag you chose and under the heading the information will be displayed."/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="Under the detail, there will be 4 buttons. The blue 'List' button which will take you back to the grid, the green 'Add' button which will take you to the page for adding a new tag, yellow 'Edit' button which will take you to the editing page of the tag you currently chose, and the red 'Delete' button."/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="By clicking on the 'Delete' button, under the buttons a section will appear which will ask you 'Are you sure you want to delete this tag?' and will offer you a green 'Confirm' button and a red 'Cancel' button."/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="By clicking on the green 'Confirm' button, you will delete the chosen tag and will be taken back to the grid. The tag you just deleted will not be displayed."/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 50"
+                Text="By clicking on the red 'Cancel' button, the section will disappear and no changes will be made."/>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

@@ -48,7 +48,6 @@
             <Label 
                 Style="{StaticResource InputLabel}" 
                 Content="{Binding SelectedEntity.Name}" 
-                Foreground="{Binding SelectedEntity.Name}"
                 HorizontalAlignment="Left"
                 Grid.Row="1" Grid.Column="1"/>
 

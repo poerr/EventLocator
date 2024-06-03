@@ -57,9 +57,10 @@ namespace EventLocator
                 case "MapButton":
                     MainFrame.Navigate(new Uri("Domain/Events/Map/MapView.xaml", UriKind.RelativeOrAbsolute));
                     break;
-                case "Tutorial":
+                case "TutorialButton":
                     break;
                 case "HelpButton":
+                    MainFrame.Navigate(new Uri("Domain/Help/HelpView.xaml", UriKind.RelativeOrAbsolute));
                     break;
             }
         }
