@@ -64,10 +64,18 @@
                 FontSize="20"
                 TextWrapping="Wrap" 
                 Width="1000"
+                Margin="0 0 0 0"
+                Text="Overlapping events:"/>
+            <Image Width="500" Source="../../Resources/Images/OverlappingEvents.png" Margin="0 20 0 60"/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
                 Margin="0 0 0 50"
                 Text="Dragging an event from a map is also a seamless process, just hold the left click on the event and drag it onto the list, and it will be successfully listed."/>
-            <Image Width="500" Source="../../Resources/Images/DragginTheEventBackToList.png" Margin="0 20 0 60"/>
-            <Image Width="500" Source="../../Resources/Images/DragEventToList.png" Margin="0 20 0 60"/>
+            <Image Width="500" Source="../../Resources/Images/DraggingTheEventBackToList.png" Margin="0 20 0 60"/>
+            <Image Width="500" Source="../../Resources/Images/DraggedEventToList.png" Margin="0 20 0 60"/>
             <TextBlock 
                 HorizontalAlignment="Center"
                 FontSize="20"
@@ -75,7 +83,22 @@
                 Width="1000"
                 Margin="0 0 0 50"
                 Text="You can also filter the events on the map by name, just start typing out the name of a desired event and the events you see will change."/>
-
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 0"
+                Text="Pre filter map:"/>
+            <Image Width="700" Source="../../Resources/Images/PreFilterMap.png" Margin="0 20 0 60"/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 0"
+                Text="Post filter map:"/>
+            <Image Width="700" Source="../../Resources/Images/PostFilterMap.png" Margin="0 20 0 60"/>
             <Label 
                 Content="Events" 
                 FontSize="30" 
@@ -89,7 +112,15 @@
                 Width="1000"
                 Margin="0 0 0 50"
                 Text="Locating to the 'EVENTS' page is done through clicking on the 'EVENTS' button in the navigation bar at the top part of the screen. There you will be met with search inputs, a filter input, a grid with all tags displayed and action buttons for adding, editing or showing details of a certain event."/>
-
+            <Image Width="500" Source="../../Resources/Images/EventNavBar.png" Margin="0 20 0 60"/>
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontSize="20"
+                TextWrapping="Wrap" 
+                Width="1000"
+                Margin="0 0 0 0"
+                Text="Index events view:"/>
+            <Image Width="1000" Source="../../Resources/Images/IndexEventView.png" Margin="0 20 0 60"/>
             <Label 
                 Content="Searching" 
                 FontSize="20" 
@@ -103,7 +134,7 @@
                 Width="1000"
                 Margin="0 0 0 50"
                 Text="Searcing is done by inputing values into search fields and pressing the 'Search' button which will show the search results in the grid. When putting in search inputs, keep in mind the data validations such as not inputing anything other than letters into text inputs etc. 'Label', 'Name', 'Description', 'Country', 'City' are all text fields and will allow only letters to be put in. 'Event type' and 'Attendance' fields are dropdown lists, where you choose from a list of options. 'Is charity' fields is a check box which you check and uncheck by clicking on it, there are 'Event date from' and 'Event date to' fields where you pick a date by clicking on the small calendar icon and selecting the desired date. Fields 'Expenses from' and 'Expenses to' expect a decimal number with 2 decimal points and a dot as a denominator."/>
-
+            <Image Width="1000" Source="../../Resources/Images/SearchedEvents.png" Margin="0 20 0 60"/>
             <TextBlock 
                 HorizontalAlignment="Center"
                 FontSize="20"
@@ -111,6 +142,7 @@
                 Width="1000"
                 Margin="0 0 0 50"
                 Text="You can clear the search result by pressing the 'Clear search' button which will restore the original tag list and will empty out the search inputs."/>
+            <Image Width="1200" Source="../../Resources/Images/ClearedSearchedEvents.png" Margin="0 20 0 60"/>
             <Label 
                 Content="Filtering" 
                 FontSize="20" 
@@ -124,6 +156,7 @@
                 Width="1000"
                 Margin="0 0 0 50"
                 Text="To filter out grid events, just start typing in the filter field and results will change in real time. The events are filtered by label, name, description, attendance, city, country and average hosting expenses. Clearing out the filter will reset the results."/>
+            <Image Width="1000" Source="../../Resources/Images/FilteredEvents.png" Margin="0 20 0 60"/>
             <Label 
                 Content="Adding an event" 
                 FontSize="20" 
@@ -138,6 +171,7 @@
                 Width="1000"
                 Margin="0 0 0 50"
                 Text="To go to the page where you can add a new event, Press the green 'Add' button under the grid."/>
+            <Image Width="1000" Source="../../Resources/Images/AddEventButton.png" Margin="0 20 0 60"/>
             <TextBlock 
                 HorizontalAlignment="Center"
                 FontSize="20"
@@ -145,6 +179,7 @@
                 Width="1000"
                 Margin="0 0 0 50"
                 Text="On the add page you will be presented with fields where you can input a label, name, description, choose the type of the event and the attendance from a dropdown list, check is it a charity event, select an icon, type in the average hosting expenses, event date."/>
+            <Image Width="1000" Source="../../Resources/Images/AddEventView.png" Margin="0 20 0 60"/>
             <TextBlock 
                 HorizontalAlignment="Center"
                 FontSize="20"
@@ -159,6 +194,8 @@
                 Width="1000"
                 Margin="0 0 0 50"
                 Text="There will also be a 'Select icon' button displayed. By clicking on it, a folder explorer will appear prompting you to choose an icon. Choose the icon and press save. The chosen icon will be displayed next to the button. If no Icon is selected, the event will have the icon of the chose event type for that event."/>
+            <Image Width="700" Source="../../Resources/Images/PressSelectIconButton.png" Margin="0 20 0 60"/>
+            <Image Width="700" Source="../../Resources/Images/ChooseIcon.png" Margin="0 20 0 60"/>
             <TextBlock 
                 HorizontalAlignment="Center"
                 FontSize="20"
@@ -166,6 +203,8 @@
                 Width="1000"
                 Margin="0 0 0 50"
                 Text="Also there will be a dropdown list of Tags. Choose a tag from the list and press on the blue + button next to the list. You will add a tag for this event and it will be displayed in the list below. You will not be able to add the same tag twice."/>
+            <Image Width="700" Source="../../Resources/Images/SelectTag.png" Margin="0 20 0 60"/>
+            <Image Width="700" Source="../../Resources/Images/SelectedTag.png" Margin="0 20 0 60"/>
             <TextBlock 
                 HorizontalAlignment="Center"
                 FontSize="20"
@@ -173,6 +212,8 @@
                 Width="1000"
                 Margin="0 0 0 50"
                 Text="Next to the list that displays selected tags, there is a red cross button. It will be disabled unless you select a tag. Then you can press the button to remove the selected tag from the list."/>
+            <Image Width="700" Source="../../Resources/Images/TagToDelete.png" Margin="0 20 0 60"/>
+            <Image Width="700" Source="../../Resources/Images/DeletedTag.png" Margin="0 20 0 60"/>
             <TextBlock 
                 HorizontalAlignment="Center"
                 FontSize="20"
@@ -180,6 +221,8 @@
                 Width="1000"
                 Margin="0 0 0 50"
                 Text="The same goes for Previous event dates. Select a date and press the blue + button to add it to the list of previous dates. You will not be able to add the same date twice."/>
+            <Image Width="700" Source="../../Resources/Images/SelectDate.png" Margin="0 20 0 60"/>
+            <Image Width="700" Source="../../Resources/Images/SelectedDate.png" Margin="0 20 0 60"/>
             <TextBlock 
                 HorizontalAlignment="Center"
                 FontSize="20"
@@ -187,6 +230,8 @@
                 Width="1000"
                 Margin="0 0 0 50"
                 Text="Next to the list that displays selected previous event dates, there is a red cross button. It will be disabled unless you select a date. Then you can press the button to remove the selected date from the list."/>
+            <Image Width="700" Source="../../Resources/Images/DateToDelete.png" Margin="0 20 0 60"/>
+            <Image Width="700" Source="../../Resources/Images/DeletedDate.png" Margin="0 20 0 60"/>
             <TextBlock 
                 HorizontalAlignment="Center"
                 FontSize="20"
@@ -201,7 +246,6 @@
                 Width="1000"
                 Margin="0 0 0 50"
                 Text="If the green 'Add' button is enabled, that means you put in valid values and can therefore proceed with adding the Event. By clicking this button, you will be taken back to the event grid and your newly added event will be displayed"/>
-
             <TextBlock 
                 HorizontalAlignment="Center"
                 FontSize="20"
@@ -222,6 +266,7 @@
                 Width="1000"
                 Margin="0 0 0 50"
                 Text="Select an event from the grid by clicking on it. The yellow 'Edit' button will become enabled and you can click it to proceed with editing an existing event."/>
+            <Image Width="700" Source="../../Resources/Images/SelectEditEvent.png" Margin="0 20 0 60"/>
             <TextBlock 
                 HorizontalAlignment="Center"
                 FontSize="20"
@@ -229,6 +274,7 @@
                 Width="1000"
                 Margin="0 0 0 50"
                 Text="The page looks identical to the 'Add' page, except that in the heading you will see the ID of the event you chose and the fields will be populated with the data of the selected event."/>
+            <Image Width="700" Source="../../Resources/Images/EditEventView.png" Margin="0 20 0 60"/>
             <TextBlock 
                 HorizontalAlignment="Center"
                 FontSize="20"
@@ -256,6 +302,7 @@
                 Width="1000"
                 Margin="0 0 0 50"
                 Text="Select an event from the grid by clicking on it. The blue 'Details' button will become enabled and by clicking on it you will be taken to the details page where you will see all the information about the event you chose. The heading will display the ID of the event you chose and under the heading the information will be displayed."/>
+            <Image Width="700" Source="../../Resources/Images/SelectDetailsEvent.png" Margin="0 20 0 60"/>
             <TextBlock 
                 HorizontalAlignment="Center"
                 FontSize="20"
@@ -263,6 +310,7 @@
                 Width="1000"
                 Margin="0 0 0 50"
                 Text="Under the detail, there will be 4 buttons. The blue 'List' button which will take you back to the grid, the green 'Add' button which will take you to the page for adding a new event, yellow 'Edit' button which will take you to the editing page of the event you currently chose, and the red 'Delete' button."/>
+            <Image Width="700" Source="../../Resources/Images/DetailsEventView.png" Margin="0 20 0 60"/>
             <TextBlock 
                 HorizontalAlignment="Center"
                 FontSize="20"
@@ -270,6 +318,7 @@
                 Width="1000"
                 Margin="0 0 0 50"
                 Text="By clicking on the 'Delete' button, under the buttons a section will appear which will ask you 'Are you sure you want to delete this event?' and will offer you a green 'Confirm' button and a red 'Cancel' button."/>
+            <Image Width="700" Source="../../Resources/Images/PressDeleteEvent.png" Margin="0 20 0 60"/>
             <TextBlock 
                 HorizontalAlignment="Center"
                 FontSize="20"

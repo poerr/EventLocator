@@ -1,0 +1,75 @@
+﻿<Page x:Class="EventLocator.Domain.Tutorial.TutorialView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:EventLocator.Domain.Tutorial"
+      mc:Ignorable="d" 
+      d:DesignHeight="1080" d:DesignWidth="1920"
+      Title="TutorialView"
+      Loaded="Window_Loaded">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <Label 
+                Content="Event map manipulation tutorial" 
+                FontSize="30" 
+                FontWeight="Bold"
+                Margin="0 0 0 50"
+                HorizontalAlignment="Center"/>
+            <MediaElement Name="mapTutorialPlayer" LoadedBehavior="Manual" UnloadedBehavior="Stop" Stretch="Uniform" Width="1000"/>
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Bottom" Background="Black" Opacity="0.7">
+                <Button Name="playMapButton" Content="Play" Click="PlayMap_Click" Margin="5" />
+                <Button Name="pauseMapButton" Content="Pause" Click="PauseMap_Click" Margin="5" />
+                <Button Name="stopMapButton" Content="Stop" Click="StopMap_Click" Margin="5" />
+            </StackPanel>
+
+            <Label Content="Search and Filter Events Tutorial" FontSize="30" FontWeight="Bold" Margin="0 0 0 20" HorizontalAlignment="Center"/>
+            <MediaElement Name="searchAndFilterEventsPlayer" LoadedBehavior="Manual" UnloadedBehavior="Stop" Stretch="Uniform" Width="1000" />
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Bottom" Background="Black" Opacity="0.7" Margin="0 0 0 50">
+                <Button Name="playSearchAndFilterEventsButton" Content="Play" Click="PlaySearchAndFilterEvents_Click" Margin="5" />
+                <Button Name="pauseSearchAndFilterEventsButton" Content="Pause" Click="PauseSearchAndFilterEvents_Click" Margin="5" />
+                <Button Name="stopSearchAndFilterEventsButton" Content="Stop" Click="StopSearchAndFilterEvents_Click" Margin="5" />
+            </StackPanel>
+
+            <Label 
+                Content="Add Event Tutorial" 
+                FontSize="30" 
+                FontWeight="Bold" 
+                Margin="0 0 0 20" 
+                HorizontalAlignment="Center"/>
+            <MediaElement Name="addEventPlayer" LoadedBehavior="Manual" UnloadedBehavior="Stop" Stretch="Uniform" Width="1000" />
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Bottom" Background="Black" Opacity="0.7" Margin="0 0 0 50">
+                <Button Name="playAddEventButton" Content="Play" Click="PlayAddEvent_Click" Margin="5" />
+                <Button Name="pauseAddEventButton" Content="Pause" Click="PauseAddEvent_Click" Margin="5" />
+                <Button Name="stopAddEventButton" Content="Stop" Click="StopAddEvent_Click" Margin="5" />
+            </StackPanel>
+
+            <Label 
+                Content="Edit Event Tutorial" 
+                FontSize="30" 
+                FontWeight="Bold"
+                Margin="0 0 0 20" 
+                HorizontalAlignment="Center"/>
+            <MediaElement Name="editEventPlayer" LoadedBehavior="Manual" UnloadedBehavior="Stop" Stretch="Uniform" Width="1000" />
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Bottom" Background="Black" Opacity="0.7" Margin="0 0 0 50">
+                <Button Name="playEditEventButton" Content="Play" Click="PlayEditEvent_Click" Margin="5" />
+                <Button Name="pauseEditEventButton" Content="Pause" Click="PauseEditEvent_Click" Margin="5" />
+                <Button Name="stopEditEventButton" Content="Stop" Click="StopEditEvent_Click" Margin="5" />
+            </StackPanel>
+
+            <Label 
+                Content="Tag Manipulation Tutorial" 
+                FontSize="30" 
+                FontWeight="Bold"
+                Margin="0 0 0 20"
+                HorizontalAlignment="Center"/>
+            <MediaElement Name="tagManipulationPlayer" LoadedBehavior="Manual" UnloadedBehavior="Stop" Stretch="Uniform" Width="1000" />
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Bottom" Background="Black" Opacity="0.7">
+                <Button Name="playTagManipulationButton" Content="Play" Click="PlayTagManipulation_Click" Margin="5" />
+                <Button Name="pauseTagManipulationButton" Content="Pause" Click="PauseTagManipulation_Click" Margin="5" />
+                <Button Name="stopTagManipulationButton" Content="Stop" Click="StopTagManipulation_Click" Margin="5" />
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</Page>
